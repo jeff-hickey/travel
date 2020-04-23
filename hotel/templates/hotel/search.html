@@ -1,0 +1,20 @@
+{% extends "hotel/layout.html" %}
+{% load static %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="{% url 'search' %}" method="post">
+                    <h5>Would these Hotels work?</h5>
+                    <ul>
+                        {% for hotel in hotels %}
+                            <li><a href="/hotel/{{ hotel.id }}">{{ hotel }}</a></li>
+                        {% endfor %}
+                    </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+
+{% endblock %}

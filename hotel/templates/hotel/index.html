@@ -1,7 +1,28 @@
 {% extends "hotel/layout.html" %}
 {% load static %}
 {% block body %}
-    <div class="container">Hotel</div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="{% url 'search' %}" method="post">
+                    {% csrf_token %}
+                    <h5>Search for a Hotel</h5>
+                    <select name="location">
+                        {% for location in locations %}
+                            <option>{{ location.location_city }}</option>
+                        {% endfor %}
+                    </select>
+                    <label>Arrival
+                        <input type="text" name="arrival" value="2020-06-30">
+                    </label>
+                    <label>Departure
+                        <input type="text" name="arrival" value="2020-07-02">
+                    </label>
+                    <button>Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block script %}
 
