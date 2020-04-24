@@ -8,7 +8,7 @@
 </head>
 <body>
 {% csrf_token %}
-<div id="app" data-hotelid="{{ hotel_id }}"/>
+<div id="app" data-hotelid="{{ hotel_id }}" data-loggedin="{{ user.is_authenticated }}"/>
 <script type="text/babel">
     class App extends React.Component {
 
@@ -21,6 +21,7 @@
                 price: props.price,
                 amenities: [],
                 loaded: false,
+                showLogin: false,
                 showInfo: false,
                 placeholder: "Loading"
             };
@@ -28,7 +29,6 @@
         }
 
         componentDidMount() {
-
             fetch(`/hotel-info/${document.querySelector('#app').dataset.hotelid}`)
                 .then(response => {
                     if (response.status > 400) {
@@ -52,12 +52,19 @@
         }
 
         handleClick(room) {
-            console.log('handleClick: ' + room.id + ',  ' + room.price)
+            const data = document.querySelector('#app').dataset.loggedin;
+            const logged_in = Boolean(data === 'True');
+
             this.setState(state => ({
                 room: room.id,
                 price: room.price,
-                showInfo: !this.state.showInfo
+                showInfo: (!logged_in ? !this.state.showLogin : this.state.showLogin),
+                showLogin: !logged_in
             }));
+        }
+
+        setShowLogin = value => {
+            this.setState({showLogin: false})
         }
 
         render() {
@@ -71,15 +78,56 @@
                         {this.state.rooms.map((room) => {
                             {
                                 return <li key={room.id}>{room.id} - ${room.price}, {room.label}
+                                    {!this.state.showLogin &&
                                     <button onClick={() => {
                                         this.handleClick(room)
-                                    }}>Book
-                                    </button>
+                                    }}>Book</button>}
+                                    {this.state.showLogin && <button>Login to Book</button>}
                                 </li>
                             }
                         })}
                     </div>
-                    {this.state.showInfo && <Booking room={this.state.room} price={this.state.price}/>}
+                    {this.state.showLogin && <Login setShowLogin={this.setShowLogin}/>}
+                    {this.state.showInfo && !this.state.showLogin &&
+                    <Booking room={this.state.room} price={this.state.price}/>}
+                </div>
+            );
+        }
+    }
+
+    class Login extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                username: props.username,
+                password: props.password
+
+            };
+            this.handleInputChange = this.handleInputChange.bind(this);
+            this.handleLogin = this.handleLogin.bind(this);
+        }
+
+        handleInputChange(event) {
+            this.setState({
+                [event.target.name]: event.target.value
+            });
+        }
+
+        handleLogin(event) {
+            console.log("LOG IN ")
+            this.props.setShowLogin
+        }
+
+        render() {
+            return (
+                <div>
+                    <div className="form-group">
+                        <input autoFocus className="form-control" type="text" name="username" placeholder="Username"/>
+                    </div>
+                    <div className="form-group">
+                        <input className="form-control" type="password" name="password" placeholder="Password"/>
+                    </div>
+                    <label>Login Time <button onClick={this.handleLogin}>BUTTON</button></label>
                 </div>
             );
         }
@@ -168,7 +216,10 @@
         }
     }
 
-    ReactDOM.render(<App/>, document.querySelector("#app"));
+
+    ReactDOM.render(
+        <App/>
+        , document.querySelector("#app"));
 </script>
 </body>
 </html>
