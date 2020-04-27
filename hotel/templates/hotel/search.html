@@ -1,17 +1,42 @@
 {% extends "hotel/layout.html" %}
 {% load static %}
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <form action="{% url 'search' %}" method="post">
-                    <h5>Would these Hotels work?</h5>
-                    <ul>
-                        {% for hotel in hotels %}
-                            <li><a href="/hotel/{{ hotel.id }}">{{ hotel }}</a></li>
-                        {% endfor %}
-                    </ul>
-            </div>
+    <div class="album py-5">
+        <div class="container">
+            {% for hotel in hotels %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow" style="min-width: 40rem">
+                            <div class="card-body" style="min-width: 40rem">
+                                <a href="/hotel/{{ hotel.id }}"><h2 class="card-text">{{ hotel }}</h2></a>
+                                <div class="card-text"><p class="text-justify">{{ hotel.about_hotel |safe }}</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul class="text-justify">
+                                            {% for amenity in hotel.amenity_list.all %}
+                                                <li>{{ amenity }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <p class="float-right">
+                                            <a href="/hotel/{{ hotel.id }}" class="btn btn-md btn-secondary mt-2">
+                                                {% if user.is_authenticated %}
+                                                    Show me Rooms.
+                                                {% else %}
+                                                    Login to Book Rooms.
+                                                {% endif %}
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
         </div>
     </div>
 {% endblock %}

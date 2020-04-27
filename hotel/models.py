@@ -8,6 +8,13 @@ class User(AbstractUser):
     pass
 
 
+class Location(models.Model):
+    label = models.CharField(max_length=64)
+
+    def __str__(self):
+        return f"{self.label}"
+
+
 class Category(models.Model):
     label = models.CharField(max_length=64)
     icon_name = models.CharField(max_length=64)
@@ -58,6 +65,7 @@ class Booking(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name='guest')
+    full_name = models.CharField(max_length=64)
     arrival_date = models.DateField()
     departure_date = models.DateField()
     phone_number = models.CharField(max_length=64)
@@ -70,7 +78,8 @@ class Booking(models.Model):
 class Hotel(models.Model):
     create_date = models.DateTimeField(auto_now=True)
     label = models.CharField(max_length=64)
-    location_city = models.CharField(max_length=64, default='Scottsdale')
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,
+                                 related_name='hotel_location')
     about_hotel = models.TextField(max_length=10000)
     amenity_list = models.ManyToManyField(Amenity,
                                           related_name='amenity_list')

@@ -1,28 +1,30 @@
 {% extends "hotel/layout.html" %}
 {% load static %}
 {% block body %}
-    <div class="container">
-        <div class="row">
+    <h1 class="cover-heading white-shadow-text">Only The Best Hotels.</h1>
+    <form action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <div class="form-row">
             <div class="col">
-                <form action="{% url 'search' %}" method="post">
-                    {% csrf_token %}
-                    <h5>Search for a Hotel</h5>
-                    <select name="location">
-                        {% for location in locations %}
-                            <option>{{ location.location_city }}</option>
-                        {% endfor %}
-                    </select>
-                    <label>Arrival
-                        <input type="text" name="arrival" value="2020-06-30">
-                    </label>
-                    <label>Departure
-                        <input type="text" name="arrival" value="2020-07-02">
-                    </label>
-                    <button>Search</button>
-                </form>
+                <select name="location" class="form-control">
+                    <option value="0">Where are you going?</option>
+                    {% for location in locations %}
+                        <option value="{{ location.id }}">{{ location.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" name="arrival" placeholder="YYYY-MM-DD"/>
+            </div>
+
+            <div class="col">
+                <input type="text" class="form-control" name="departure" placeholder="YYYY-MM-DD"/>
             </div>
         </div>
-    </div>
+        <p class="lead">
+            <input type="submit" class="btn btn-lg btn-secondary mt-2" value="Let's see Hotels.">
+        </p>
+    </form>
 {% endblock %}
 {% block script %}
 

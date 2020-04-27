@@ -1,9 +1,13 @@
 from django.contrib import admin
 
-from hotel.models import User, Room, Amenity, Hotel, Category
+from hotel.models import User, Room, Amenity, Hotel, Category, Location
 
 
 class UserAdmin(admin.ModelAdmin):
+    pass
+
+
+class LocationAdmin(admin.ModelAdmin):
     pass
 
 
@@ -26,6 +30,7 @@ class RoomAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(User, UserAdmin)
+admin.site.register(Location, LocationAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Hotel, HotelAdmin)
 admin.site.register(Room, RoomAdmin)

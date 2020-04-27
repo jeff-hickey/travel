@@ -1,225 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "hotel/layout.html" %}
+{% load static %}
+{% block body %}
+    {% csrf_token %}
+    <div class="album py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow" style="min-width: 40rem">
+                        <div id="app" data-hotelid="{{ hotel_id }}"
+                             data-loggedin="{{ user.is_authenticated }}"
+                             data-fullname="{{ user.get_full_name }}"
+                        />
+                        <div class="card-footer">
+                            <h2 style="color: hotpink">Flexible, free cancellation.</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <title>Hello</title>
-</head>
-<body>
-{% csrf_token %}
-<div id="app" data-hotelid="{{ hotel_id }}" data-loggedin="{{ user.is_authenticated }}"/>
-<script type="text/babel">
-    class App extends React.Component {
-
-        constructor(props) {
-            super(props);
-            this.state = {
-                hotel: [],
-                rooms: [],
-                room: [],
-                price: props.price,
-                amenities: [],
-                loaded: false,
-                showLogin: false,
-                showInfo: false,
-                placeholder: "Loading"
-            };
-            this.handleClick = this.handleClick.bind(this);
-        }
-
-        componentDidMount() {
-            fetch(`/hotel-info/${document.querySelector('#app').dataset.hotelid}`)
-                .then(response => {
-                    if (response.status > 400) {
-                        return this.setState(() => {
-                            return {placeholder: "Something went wrong!"};
-                        });
-                    }
-                    return response.json();
-                })
-                .then(hotel => {
-                    console.log(hotel.rooms)
-                    this.setState(() => {
-                        return {
-                            hotel,
-                            rooms: hotel.rooms,
-                            amenities: hotel.amenities,
-                            loaded: true
-                        };
-                    });
-                });
-        }
-
-        handleClick(room) {
-            const data = document.querySelector('#app').dataset.loggedin;
-            const logged_in = Boolean(data === 'True');
-
-            this.setState(state => ({
-                room: room.id,
-                price: room.price,
-                showInfo: (!logged_in ? !this.state.showLogin : this.state.showLogin),
-                showLogin: !logged_in
-            }));
-        }
-
-        setShowLogin = value => {
-            this.setState({showLogin: false})
-        }
-
-        render() {
-            return (
-                <div>
-
-                    <div>
-                        {this.state.hotel.id}
-                        {this.state.hotel.label}
-                        <hr></hr>
-                        {this.state.rooms.map((room) => {
-                            {
-                                return <li key={room.id}>{room.id} - ${room.price}, {room.label}
-                                    {!this.state.showLogin &&
-                                    <button onClick={() => {
-                                        this.handleClick(room)
-                                    }}>Book</button>}
-                                    {this.state.showLogin && <button>Login to Book</button>}
-                                </li>
-                            }
-                        })}
-                    </div>
-                    {this.state.showLogin && <Login setShowLogin={this.setShowLogin}/>}
-                    {this.state.showInfo && !this.state.showLogin &&
-                    <Booking room={this.state.room} price={this.state.price}/>}
-                </div>
-            );
-        }
-    }
-
-    class Login extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                username: props.username,
-                password: props.password
-
-            };
-            this.handleInputChange = this.handleInputChange.bind(this);
-            this.handleLogin = this.handleLogin.bind(this);
-        }
-
-        handleInputChange(event) {
-            this.setState({
-                [event.target.name]: event.target.value
-            });
-        }
-
-        handleLogin(event) {
-            console.log("LOG IN ")
-            this.props.setShowLogin
-        }
-
-        render() {
-            return (
-                <div>
-                    <div className="form-group">
-                        <input autoFocus className="form-control" type="text" name="username" placeholder="Username"/>
-                    </div>
-                    <div className="form-group">
-                        <input className="form-control" type="password" name="password" placeholder="Password"/>
-                    </div>
-                    <label>Login Time <button onClick={this.handleLogin}>BUTTON</button></label>
-                </div>
-            );
-        }
-    }
-
-    class Booking extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                phone: props.phone,
-                arrival: props.arrival,
-                departure: props.departure,
-                price: props.price,
-                room: props.room,
-                confirmation: props.confirmation
-            };
-
-            this.handleInputChange = this.handleInputChange.bind(this);
-            this.handleClick = this.handleClick.bind(this);
-        }
-
-        handleInputChange(event) {
-            this.setState({
-                [event.target.name]: event.target.value
-            });
-        }
-
-        handleClick(event) {
-            event.preventDefault();
-            console.log('fetching' + this.state.room)
-            fetch('/booking', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value,
-                },
-                body: JSON.stringify({
-                    price: this.state.price,
-                    room: this.state.room,
-                    phone: this.state.phone,
-                    arrival: this.state.arrival,
-                    departure: this.state.departure
-                })
-            }).then(response => {
-                if (!response.ok) {
-                    throw Error(response.status + ' - ' + response.statusText);
-                }
-                return response.json()
-
-            }).then((data) => {
-                this.setState({
-                    confirmation: data.confirmation
-                });
-            }).catch(console.log)
-        }
-
-        render() {
-            return (
-                <div>
-                    <label> Phone:
-                        <input name="phone" type="input" checked={this.state.phone}
-                               onChange={this.handleInputChange}/>
-                    </label>
-                    <p>{this.state.phone}</p>
-                    <label>
-                        Last Name:
-                        <input name="last_name" type="input" checked={this.state.first_name}
-                               onChange={this.handleInputChange}/>
-                    </label>
-                    <p>{this.state.last_name}</p>
-                    <br/>
-                    <label>
-                        Arrival Date (YYYY-MM-DD): {this.state.arrival}
-                        <input name="arrival" type="input" checked={this.state.arrival}
-                               onChange={this.handleInputChange}/>
-                    </label>
-                    <label>
-                        Departure Date (YYYY-MM-DD): {this.state.departure}
-                        <input name="departure" type="input" checked={this.state.departure}
-                               onChange={this.handleInputChange}/>
-                    </label>
-                    <br/>
-                    <button onClick={this.handleClick}>Fire Lasers</button>
-                    <h1> {this.state.confirmation}</h1>
-                </div>
-            );
-        }
-    }
-
-
-    ReactDOM.render(
-        <App/>
-        , document.querySelector("#app"));
-</script>
-</body>
-</html>
+    <script type="text/babel" src="{% static '/hotel.js' %}"></script>
+{% endblock %}

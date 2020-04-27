@@ -9,19 +9,20 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
-from hotel.models import User, Hotel, Booking, Room
+from hotel.models import User, Hotel, Booking, Room, Location
 
 
 def index(request):
     # Default route for the Hotel website.
-    locations = Hotel.objects.order_by('location_city').values(
-        'location_city').distinct()
+
+    locations = Location.objects.all()
     print(locations)
-    return render(request, "hotel/index.html", {"locations": locations})
+    return render(request, "hotel/index.html",
+                  {"locations": locations, "home_page": "active"})
 
 
 def search(request):
-    hotels = Hotel.objects.filter(location_city=request.POST["location"]).all()
+    hotels = Hotel.objects.filter(location=request.POST["location"]).all()
     print(hotels)
     return render(request, "hotel/search.html", {"hotels": hotels})
 
@@ -53,7 +54,12 @@ def room_available(request, room_id, arrival, departure):
 
 
 def hotel(request, hotel_id):
-    # Default route for the Hotel website.
+    # Default route for the Hotel page with rooms, requires login.
+    if not request.user.is_authenticated:
+        # Provide a return URL for the User, after they have logged in.
+        return_url = f'hotel/{hotel_id}'
+        return render(request, "hotel/login.html",
+                      {"login_page": "active", "return_url": return_url})
     return render(request, "hotel/hotel.html", {"hotel_id": hotel_id})
 
 
@@ -69,28 +75,34 @@ def hotel_info(request, hotel_id):
 
 @require_http_methods(["POST"])
 def booking(request):
-    # if not request.user.is_authenticated:
-    #     return JsonResponse({"error": "User must log in to book."},
-    #     status=401)
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "User must log in to book."}, status=401)
     data = json.loads(request.body)
-    print(data)
+
     try:
         user = User.objects.get(pk=request.user.id)
+        room = Room.objects.get(pk=data.get("room"))
         booking = Booking.objects.create(user=user,
+                                         full_name=data.get("full_name"),
+                                         room=room,
                                          confirmation=
                                          random.randrange(10000, 99999),
                                          arrival_date=data.get("arrival"),
                                          departure_date=data.get("departure"),
                                          phone_number=data.get("phone"),
-                                         price_booked=data.get(
-                                             "price"))
+                                         price_booked=data.get("price"))
 
-        print(booking)
         return JsonResponse({"confirmation": booking.confirmation},
                             status=201)
-    except User.DoesNotExist:
+    except Room.DoesNotExist:
+        print('Room does not exist.')
         return JsonResponse({"error": "Booking was not created."}, status=404)
-    except IntegrityError:
+    except User.DoesNotExist:
+        print('User does not exist.')
+        return JsonResponse({"error": "Booking was not created."}, status=404)
+    except IntegrityError as error:
+        print('Error creating a Booking.')
+        print(error)
         return JsonResponse({"error": "Booking was not created."}, status=500)
 
 
@@ -105,13 +117,17 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
+            # Return User to the Booking process, if they have a return url.
+            if request.POST['return_url']:
+                return HttpResponseRedirect(request.POST['return_url'])
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "hotel/login.html", {
-                "message": "Invalid username and/or password."
+                "message": "Invalid username and/or password.",
+                "login_page": "active"
             })
     else:
-        return render(request, "hotel/login.html")
+        return render(request, "hotel/login.html", {"login_page": "active"})
 
 
 def logout_view(request):
@@ -135,6 +151,9 @@ def register(request):
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, email, password)
+            # Add first and last name if available.
+            user.first_name = request.POST["first_name"]
+            user.last_name = request.POST["last_name"]
             user.save()
         except IntegrityError:
             return render(request, "hotel/register.html", {
@@ -143,4 +162,5 @@ def register(request):
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "hotel/register.html")
+        return render(request, "hotel/register.html",
+                      {"register_page": "active"})
