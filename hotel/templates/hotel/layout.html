@@ -24,7 +24,7 @@
                         {% if user.first_name %}
                             {{ user.first_name }}'s
                         {% endif %}
-                        Bookings</a>
+                        My Bookings</a>
                     <a class="nav-link {{ logout_page }}" href="{% url 'logout' %}">Logout</a>
                 {% else %}
                     <a class="nav-link {{ login_page }}" href="{% url 'login' %}">Login
