@@ -1,7 +1,7 @@
 import datetime
 from django.test import Client, TestCase
 
-from .models import Booking, Room, User
+from .models import Booking, Room, User, Location, Hotel, Amenity, Category
 
 
 #  Set testing year to next year.
@@ -14,16 +14,31 @@ class BookingTestCase(TestCase):
     def setUp(self):
         user = User.objects.create_user("test", "test@home.com", "crossfit")
 
-        # Create room.
+        location1 = Location.objects.create(label="Test Locations")
+
+        category1 = Category.objects.create(label="Swimming Pool",
+                                            icon_name="pool.jpg")
+        category2 = Category.objects.create(label="Wifi", icon_name="wifi.jpg")
+        amenity1 = Amenity.objects.create(label="Free and Paid Wifi",
+                                          category=category2)
+        amenity2 = Amenity.objects.create(label="6 Pools with Hot Tub",
+                                          category=category1)
+
         room1 = Room.objects.create(label="room one", price=100, max_guests=2,
                                     number_on_door=101, floor=2)
 
-        # Dates
+        # Create the Hotel adding room plus amenitues.
+        hotel1 = Hotel.objects.create(label="Test Hotel", location=location1,
+                                      about_hotel="Wonderful hotel.")
+        hotel1.room_list.add(room1)
+        hotel1.amenity_list.add(amenity1)
+        hotel1.amenity_list.add(amenity2)
+
         # Book the room.
         Booking.objects.create(arrival_date=datetime.date(test_year(), 6, 1),
                                departure_date=datetime.date(test_year(), 6, 5),
                                confirmation=12345,
-                               user_id=user.id, room=room1)
+                               user_id=user.id, room=room1, hotel=hotel1)
 
     def test_room_availability(self):
         c = Client()
