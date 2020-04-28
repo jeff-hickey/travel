@@ -2,6 +2,7 @@ import datetime
 import json
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate, logout, login
 from django.db import IntegrityError
@@ -14,16 +15,14 @@ from hotel.models import User, Hotel, Booking, Room, Location
 
 def index(request):
     # Default route for the Hotel website.
-
     locations = Location.objects.all()
-    print(locations)
     return render(request, "hotel/index.html",
                   {"locations": locations, "home_page": "active"})
 
 
 def search(request):
+    # Get hotels for the location specified.
     hotels = Hotel.objects.filter(location=request.POST["location"]).all()
-    print(hotels)
     return render(request, "hotel/search.html", {"hotels": hotels})
 
 
@@ -73,6 +72,20 @@ def hotel_info(request, hotel_id):
         return JsonResponse(hotel.serialize())
 
 
+@login_required
+def history(request):
+    try:
+        user = User.objects.get(pk=request.user.id);
+        history = Booking.objects.filter(user=user).all()
+
+    except User.DoesNotExist:
+        print('User does not exist.')
+        messages.add_message(request, messages.WARNING,
+                             "No User found, please login.")
+    return render(request, "hotel/history.html",
+                  {"history": history, "history_page": "active"})
+
+
 @require_http_methods(["POST"])
 def booking(request):
     if not request.user.is_authenticated:
@@ -82,9 +95,11 @@ def booking(request):
     try:
         user = User.objects.get(pk=request.user.id)
         room = Room.objects.get(pk=data.get("room"))
+        hotel = Hotel.objects.get(room_list__in=room)
         booking = Booking.objects.create(user=user,
                                          full_name=data.get("full_name"),
                                          room=room,
+                                         hotel=hotel,
                                          confirmation=
                                          random.randrange(10000, 99999),
                                          arrival_date=data.get("arrival"),

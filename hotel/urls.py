@@ -6,6 +6,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("search", views.search, name="search"),
     path("hotel/<int:hotel_id>", views.hotel, name="hotel"),
+    path("history", views.history, name="history"),
     # API urls
     path("hotel-info/<int:hotel_id>", views.hotel_info, name="hotel"),
     path("booking", views.booking, name="booking"),

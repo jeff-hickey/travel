@@ -71,6 +71,8 @@ class Booking(models.Model):
     phone_number = models.CharField(max_length=64)
     room = models.ForeignKey(Room, on_delete=models.CASCADE,
                              related_name='room_booked')
+    hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE,
+                              related_name='hotel_booked')
     price_booked = models.DecimalField(max_digits=6, decimal_places=0,
                                        default=0)
 
