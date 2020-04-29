@@ -2,6 +2,7 @@ import datetime
 import json
 import random
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate, logout, login
@@ -23,6 +24,10 @@ def index(request):
 def search(request):
     # Get hotels for the location specified.
     hotels = Hotel.objects.filter(location=request.POST["location"]).all()
+    if not hotels:
+        messages.add_message(request, messages.WARNING,
+                             "No hotels found.")
+        return HttpResponseRedirect(reverse("index"))
     return render(request, "hotel/search.html", {"hotels": hotels})
 
 

@@ -2,30 +2,44 @@
 {% load static %}
 {% block body %}
     <h1 class="cover-heading white-shadow-text">Only The Best Hotels.</h1>
-    <form action="{% url 'search' %}" method="post">
+    {% if messages %}
+        <div id="alert_message" class="alert alert-danger" role="alert">
+            {% for message in messages %}
+                <h5>{{ message }}</h5>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div id="alert_message" style="display: none" class="alert alert-danger" role="alert"></div>
+    <form action="{% url 'search' %}" method="post" id="search_form">
         {% csrf_token %}
         <div class="form-row">
             <div class="col">
-                <select name="location" class="form-control">
-                    <option value="0">Where are you going?</option>
-                    {% for location in locations %}
-                        <option value="{{ location.id }}">{{ location.label }}</option>
-                    {% endfor %}
-                </select>
+                <label><h5 class="white-shadow-text">Destination</h5>
+                    <select name="location" id="search_location" class="form-control">
+                        <option value="0">Where are you going?</option>
+                        {% for location in locations %}
+                            <option value="{{ location.id }}">{{ location.label }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
             </div>
             <div class="col">
-                <input type="text" class="form-control" name="arrival" placeholder="YYYY-MM-DD"/>
+                <label><h5 class="white-shadow-text">Arrival Date</h5>
+                    <input class="form-control" id="search_arrival" name="arrival" placeholder="YYYY-MM-DD"/>
+                </label>
             </div>
-
             <div class="col">
-                <input type="text" class="form-control" name="departure" placeholder="YYYY-MM-DD"/>
+                <label><h5 class="white-shadow-text">Departure Date</h5>
+                    <input class="form-control" id="search_departure" name="departure"
+                           placeholder="YYYY-MM-DD"/>
+                </label>
             </div>
         </div>
         <p class="lead">
-            <input type="submit" class="btn btn-lg btn-secondary mt-2" value="Let's see Hotels.">
+            <input type="submit" id="search_hotels" class="btn btn-lg btn-secondary mt-2" value="Show Hotels.">
         </p>
     </form>
 {% endblock %}
 {% block script %}
-
+    <script type="text/javascript" src="{% static '/search.js' %}"></script>
 {% endblock %}
