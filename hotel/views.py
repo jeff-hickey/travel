@@ -11,17 +11,23 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
+from hotel.forms import SearchForm
 from hotel.models import User, Hotel, Booking, Room, Location
 
 
 def index(request):
     # Default route for the Hotel website.
-    locations = Location.objects.all()
+    form = SearchForm()
     return render(request, "hotel/index.html",
-                  {"locations": locations, "home_page": "active"})
+                  {"home_page": "active", "form": form})
 
 
 def search(request):
+    # Validate the search input.
+    form = SearchForm(request.POST)
+    if not form.is_valid():
+        return render(request, "hotel/index.html",
+                      {"home_page": "active", "form": form})
     # Get hotels for the location specified.
     hotels = Hotel.objects.filter(location=request.POST["location"]).all()
     if not hotels:

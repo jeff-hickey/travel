@@ -1,7 +1,7 @@
 {% extends "hotel/layout.html" %}
 {% load static %}
 {% block body %}
-    <h1 class="cover-heading white-shadow-text">Only The Best Hotels.</h1>
+    <h1 class="cover-heading white-shadow-text">The Best Hotels.</h1>
     {% if messages %}
         <div id="alert_message" class="alert alert-danger" role="alert">
             {% for message in messages %}
@@ -13,25 +13,23 @@
     <form action="{% url 'search' %}" method="post" id="search_form">
         {% csrf_token %}
         <div class="form-row">
-            <div class="col">
+            <div class="col" style="border: 3px green solid">
                 <label><h5 class="white-shadow-text">Destination</h5>
-                    <select name="location" id="search_location" class="form-control">
-                        <option value="0">Where are you going?</option>
-                        {% for location in locations %}
-                            <option value="{{ location.id }}">{{ location.label }}</option>
-                        {% endfor %}
-                    </select>
+                    {{ form.location }}
+                    <span class="white-shadow-text">{{ form.location.errors|striptags }}</span>
                 </label>
             </div>
             <div class="col">
                 <label><h5 class="white-shadow-text">Arrival Date</h5>
-                    <input class="form-control" id="search_arrival" name="arrival" placeholder="YYYY-MM-DD"/>
+                    <!-- <input class="form-control" id="search_arrival" name="arrival" placeholder="YYYY-MM-DD"/>-->
+                    {{ form.arrival }}
+                    <span class="white-shadow-text">{{ form.arrival.errors|striptags }}</span>
                 </label>
             </div>
             <div class="col">
                 <label><h5 class="white-shadow-text">Departure Date</h5>
-                    <input class="form-control" id="search_departure" name="departure"
-                           placeholder="YYYY-MM-DD"/>
+                    {{ form.departure }}
+                    <span class="white-shadow-text">{{ form.departure.errors|striptags }}</span>
                 </label>
             </div>
         </div>
@@ -41,5 +39,17 @@
     </form>
 {% endblock %}
 {% block script %}
+    <script>
+        $(function () {
+            $('.datetime-input').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss'
+            });
+        });
+    </script>
+    <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+
     <script type="text/javascript" src="{% static '/search.js' %}"></script>
 {% endblock %}
