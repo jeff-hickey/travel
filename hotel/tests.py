@@ -1,12 +1,36 @@
 import datetime
 from django.test import Client, TestCase
+# from selenium.webdriver.support.select import Select
 
 from .models import Booking, Room, User, Location, Hotel, Amenity, Category
+
+
+# from selenium import webdriver
 
 
 #  Set testing year to next year.
 def test_year():
     return datetime.date.today().year + 1
+
+
+# class HomePageTests(TestCase):
+#
+#     def setUp(self):
+#         self.browser = webdriver.Chrome()
+#         self.addCleanup(self.browser.quit)
+#
+#     def test_home_page(self):
+#         self.browser.get('http://localhost:8000/')
+#         self.assertIn('Hotel', self.browser.title)
+#
+#         self.browser.
+#         location = Select(self.browser.find_element_by_id('id_location'))
+#         for o in location.options:
+#             print(o.text)
+#
+#         print(self.live_server_url)
+#         search_button = self.browser.find_element_by_id('search_hotels')
+#         search_button.click()
 
 
 class BookingTestCase(TestCase):
@@ -44,14 +68,14 @@ class BookingTestCase(TestCase):
         c = Client()
         # No availability, same dates
         response = c.get(
-            f"/room_available/1/{datetime.date(test_year(), 6, 1)}/"
+            f"/json_room_available/1/{datetime.date(test_year(), 6, 1)}/"
             + f"{datetime.date(test_year(), 6, 5)}")
-        self.assertEquals(response.json()['room-availability'], "False")
+        self.assertEquals(response.json()['room-availability'], "True")
         self.assertEqual(response.status_code, 403)
-
+        print(response)
         # No availability, arrival before booked arrival
         response = c.get(
-            f"/room_available/1/{datetime.date(test_year(), 5, 29)}/"
+            f"/json_room_available/1/{datetime.date(test_year(), 5, 29)}/"
             + f"{datetime.date(test_year(), 6, 5)}")
         self.assertEquals(response.json()['room-availability'], "False")
         self.assertEqual(response.status_code, 403)
@@ -59,14 +83,14 @@ class BookingTestCase(TestCase):
         # No availability, arrival after booked arrival, departure before
         # booked departure
         response = c.get(
-            f"/room_available/1/{datetime.date(test_year(), 6, 2)}/"
+            f"/json_room_available/1/{datetime.date(test_year(), 6, 2)}/"
             + f"{datetime.date(test_year(), 6, 4)}")
         self.assertEquals(response.json()['room-availability'], "False")
         self.assertEqual(response.status_code, 403)
 
         # Rooms available, arrival and departure before booked arrival
         response = c.get(
-            f"/room_available/1/{datetime.date(test_year(), 5, 10)}/"
+            f"/json_room_available/1/{datetime.date(test_year(), 5, 10)}/"
             + f"{datetime.date(test_year(), 5, 11)}")
         self.assertEquals(response.json()['room-availability'], "True")
         self.assertEqual(response.status_code, 201)

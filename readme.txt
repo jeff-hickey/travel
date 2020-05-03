@@ -1,0 +1,1 @@
+1. Using Chrome driver for Selenium tests.

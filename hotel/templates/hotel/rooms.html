@@ -1,0 +1,61 @@
+{% extends "hotel/layout.html" %}
+{% load static %}
+{% block body %}
+    <div class="card text-white bg-pink mb-3">
+        <div class="card-body w-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h2 class="white-shadow-text">{{ hotel.label }} </h2>
+                    </div>
+                    {% if request.session.cart %}
+                    <div class="col-lg-3 text-right mt-1">
+                        <a href="{% url 'checkout' %}" id="checkout" class="btn btn-md btn-secondary mr-3">Check Out >></a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        {% if hotel.image_url %}
+                            <img class="card-img-top"
+                                 src="{{ hotel.image_url }}"
+                                 alt="{{ hotel.label }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ hotel.label }}</h5>
+                            <p class="card-text">{{ hotel.about_hotel }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">&nbsp;</div>
+                                <small class="text-muted">{{ hotel.location }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Availability form and rooms list -->
+                            <div id="form" data-arrival="{{ request.session.arrival }}"
+                                 data-departure="{{ request.session.departure }}"
+                                 data-hotel="{{ hotel.id }}"
+                                 data-cart="{{ request.session.cart }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel" src="{% static '/hotel/room.js' %}"></script>
+{% endblock %}

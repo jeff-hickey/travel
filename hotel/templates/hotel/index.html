@@ -1,55 +1,73 @@
 {% extends "hotel/layout.html" %}
 {% load static %}
 {% block body %}
-    <h1 class="cover-heading white-shadow-text">The Best Hotels.</h1>
-    {% if messages %}
-        <div id="alert_message" class="alert alert-danger" role="alert">
-            {% for message in messages %}
-                <h5>{{ message }}</h5>
-            {% endfor %}
+    <section class="jumbotron text-center bg-image">
+        <div class="container">
+            <h1 class="white-shadow-text">Vacation, yeah lets do that.</h1>
+            <a href="#" class="btn btn-secondary my-2">Something here</a>
+            </p>
+
         </div>
-    {% endif %}
-    <div id="alert_message" style="display: none" class="alert alert-danger" role="alert"></div>
-    <form action="{% url 'search' %}" method="post" id="search_form">
-        {% csrf_token %}
-        <div class="form-row">
-            <div class="col" style="border: 3px green solid">
-                <label><h5 class="white-shadow-text">Destination</h5>
-                    {{ form.location }}
-                    <span class="white-shadow-text">{{ form.location.errors|striptags }}</span>
-                </label>
-            </div>
-            <div class="col">
-                <label><h5 class="white-shadow-text">Arrival Date</h5>
-                    <!-- <input class="form-control" id="search_arrival" name="arrival" placeholder="YYYY-MM-DD"/>-->
-                    {{ form.arrival }}
-                    <span class="white-shadow-text">{{ form.arrival.errors|striptags }}</span>
-                </label>
-            </div>
-            <div class="col">
-                <label><h5 class="white-shadow-text">Departure Date</h5>
-                    {{ form.departure }}
-                    <span class="white-shadow-text">{{ form.departure.errors|striptags }}</span>
-                </label>
+
+    </section>
+    <form action="{% url 'search' %}" method="get" id="search_form">
+    {% csrf_token %}
+    <div class="card text-white bg-dark mb-3">
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label for="location">Location</label>
+                        {{ form.location }}
+                    </div>
+                    <div class="col">
+                        <label for="arrival">Arrival</label>
+                        {{ form.arrival }}
+                    </div>
+                    <div class="col">
+                        <label for="departure">Departure</label>
+                        {{ form.departure }}
+                    </div>
+                    <div class="col">
+                        <input type="submit" id="search_hotels" class="btn btn-lg btn-secondary mt-4"
+                               value="Show Hotels.">
+                    </div>
+                </div>
             </div>
         </div>
-        <p class="lead">
-            <input type="submit" id="search_hotels" class="btn btn-lg btn-secondary mt-2" value="Show Hotels.">
-        </p>
+    </div>
     </form>
+    <div class="album py-5 bg-light">
+        <div class="container">
+        <h1>All Hotels</h1>
+            <div class="row">
+                {% for hotel in hotels %}
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            {% if hotel.image_url %}
+                                <img class="card-img-top"
+                                     src="{{ hotel.image_url }}"
+                                     alt="{{ hotel.label }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ hotel.label }}</h5>
+                                <p class="card-text">{{ hotel.about_hotel }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="/hotel/{{ hotel.id }}" class="btn btn-sm btn-outline-secondary">View Rooms
+                                        </a>
+                                    </div>
+                                    <small class="text-muted">{{ hotel.location }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block script %}
-    <script>
-        $(function () {
-            $('.datetime-input').datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:ss'
-            });
-        });
-    </script>
-    <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css"
-          rel="stylesheet">
-    <script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
-
-    <script type="text/javascript" src="{% static '/search.js' %}"></script>
 {% endblock %}

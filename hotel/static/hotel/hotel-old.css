@@ -51,6 +51,11 @@ a:hover {
     text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
 }
 
+/* Pink shadow text*/
+.pink-shadow-text {
+    color: hotpink;
+    text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+}
 /* Holds Navigation and main content */
 .cover-container {
     max-width: 42em;

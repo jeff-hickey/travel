@@ -1,45 +1,60 @@
 {% extends "hotel/layout.html" %}
 {% load static %}
 {% block body %}
-    <div class="album py-5">
+    <form action="{% url 'search' %}" method="post" id="search_form">
+        {% csrf_token %}
+        <div class="card text-white bg-pink mb-3">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col ">
+                            {{ form.location }}
+                        </div>
+                        <div class="col">
+                            {{ form.arrival }}
+                        </div>
+                        <div class="col">
+                            {{ form.departure }}
+                        </div>
+                        <div class="col">
+                            <input type="submit" id="search_hotels" class="btn btn-md btn-secondary"
+                                   value="Show Hotels.">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="album py-5 bg-light">
         <div class="container">
-            {% for hotel in hotels %}
-                <div class="row">
+            <h2>Hotels in {{ form.cleaned_data.location }}</h2>
+            <div class="row">
+                {% for hotel in hotels %}
                     <div class="col-md-4">
-                        <div class="card mb-4 box-shadow" style="min-width: 40rem">
-                            <div class="card-body" style="min-width: 40rem">
-                                <a href="/hotel/{{ hotel.id }}"><h2 class="card-text mb-2">{{ hotel }}</h2></a>
-                                <div class="card-text"><p class="text-justify">{{ hotel.about_hotel |safe }}</p>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <ul class="text-justify">
-                                            {% for amenity in hotel.amenity_list.all %}
-                                                <li>{{ amenity }}</li>
-                                            {% endfor %}
-                                        </ul>
+                        <div class="card mb-4 box-shadow">
+                            {% if hotel.image_url %}
+                                <img class="card-img-top"
+                                     src="{{ hotel.image_url }}"
+                                     alt="{{ hotel.label }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ hotel.label }}</h5>
+                                <p class="card-text">{{ hotel.about_hotel }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="/hotel/{{ hotel.id }}" class="btn btn-sm btn-outline-secondary">View
+                                            Rooms
+                                        </a>
                                     </div>
-                                    <div class="col">
-                                        <p class="float-right">
-                                            <a href="/hotel/{{ hotel.id }}" class="btn btn-md btn-secondary mt-2">
-                                                {% if user.is_authenticated %}
-                                                    Show me Rooms.
-                                                {% else %}
-                                                    Login to Book Rooms.
-                                                {% endif %}
-                                            </a>
-                                        </p>
-                                    </div>
+                                    <small class="text-muted">{{ hotel.location }}</small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
 {% block script %}
-
 {% endblock %}

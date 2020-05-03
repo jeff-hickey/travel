@@ -2,6 +2,7 @@ import uuid
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 
 
 class User(AbstractUser):
@@ -34,6 +35,10 @@ class Amenity(models.Model):
 
 
 class Room(models.Model):
+    # Flag a room as available as determined by views.room_availability.
+    available = True
+    arrival = timezone.now()
+    departure = timezone.now()
     create_date = models.DateTimeField(auto_now=True)
     label = models.CharField(max_length=64)
     about_room = models.TextField(max_length=5000)
@@ -42,6 +47,7 @@ class Room(models.Model):
     num_beds = models.PositiveIntegerField(default=1)
     max_guests = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=6, decimal_places=0, default=0)
+    image_url = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return f"{self.label}, Room # {self.number_on_door}"
@@ -56,6 +62,8 @@ class Room(models.Model):
             "num_beds": self.num_beds,
             "max_guests": self.max_guests,
             "price": self.price,
+            "image_url": self.image_url,
+            "available": self.available
         }
 
 
@@ -86,6 +94,7 @@ class Hotel(models.Model):
     amenity_list = models.ManyToManyField(Amenity,
                                           related_name='amenity_list')
     room_list = models.ManyToManyField(Room, related_name='room_list')
+    image_url = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return f"{self.label}"
@@ -100,4 +109,5 @@ class Hotel(models.Model):
             "amenities": [amenity.label for amenity in
                           self.amenity_list.all()],
             "rooms": [room.serialize() for room in self.room_list.all()],
+            "image_url": self.image_url,
         }
