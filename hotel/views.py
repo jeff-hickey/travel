@@ -17,11 +17,14 @@ from hotel.models import User, Hotel, Booking, Room
 
 def index(request):
     # Default route for the Hotel website.
-    if "location" in request.session:
-        form = SearchForm({"arrival": request.session["arrival"],
-                           "departure": request.session["departure"],
-                           "location": request.session["location"]})
-        print(request.session["location"])
+    search = _get_session_search(request)
+    print(search)
+
+    if search:
+        form = SearchForm({"arrival": search.get("arrival"),
+                           "departure": search.get("departure"),
+                           "location": search.get("location")})
+        print(form)
     else:
         form = SearchForm()
     hotels = Hotel.objects.all()
@@ -45,14 +48,13 @@ def search(request):
                       {"home_page": "active", "form": form})
 
     # Add search data to session.
-    request.session['arrival'] = str(form.cleaned_data["arrival"])
-    request.session['departure'] = str(form.cleaned_data["departure"])
-    request.session['location'] = str(form.cleaned_data["location"].id)
+    _put_session_search(request, str(form.cleaned_data["location"].id),
+                        str(form.cleaned_data["arrival"]),
+                        str(form.cleaned_data["departure"]))
 
     # Get hotels for the location specified.
     hotels = Hotel.objects.filter(location=form.cleaned_data['location']).all()
     if not hotels:
-        print("NO HOTELS")
         messages.add_message(request, messages.WARNING,
                              "No hotels found.")
 
@@ -113,7 +115,8 @@ def hotel(request, hotel_id):
 
 def hotel_rooms(request, hotel_id, arrival, departure):
     """
-    API method returning available rooms for specified hotel.
+    API method returning all rooms and availability for hotel and dates
+    requested.
     :param request:
     :param hotel_id:
     :param arrival:
@@ -130,6 +133,9 @@ def hotel_rooms(request, hotel_id, arrival, departure):
             arrival, "%Y-%m-%d").date()
         new_departure = datetime.datetime.strptime(
             departure, "%Y-%m-%d").date()
+        # Update the current user search parameters.
+        _put_session_search(request, hotel.location.id, str(new_arrival),
+                            str(new_departure))
 
         # Build a ist of rooms with availability flags set.
         final_list = []
@@ -141,6 +147,9 @@ def hotel_rooms(request, hotel_id, arrival, departure):
                 room.available = False
             final_list.append(room)
 
+        # Show the available rooms first.
+        final_list = sorted(final_list, key=lambda room: room.available,
+                            reverse=True)
     except Hotel.DoesNotExist:
         return JsonResponse({"error": "Hotel does not exist."}, status=404)
 
@@ -173,7 +182,7 @@ def history(request):
                   {"history": history, "history_page": "active"})
 
 
-def cart(request, room_id, price):
+def cart(request, room_id, arrival, departure, price):
     """
     Removes a Room if it exists or Stores the Room in the users session
     along with price arrival and departure dates.
@@ -186,8 +195,8 @@ def cart(request, room_id, price):
         return JsonResponse({"error": "User is not authenticated."},
                             status=401)
     # Create the room to added to cart.
-    room = {"id": room_id, "arrival": request.session['arrival'],
-            "departure": request.session['departure'], "price": price}
+    room = {"id": room_id, "arrival": arrival,
+            "departure": departure, "price": price}
 
     # Check for an existing cart.
     if "cart" not in request.session:
@@ -212,7 +221,7 @@ def cart(request, room_id, price):
 def checkout(request):
     """
     Render the checkout page for GET requests or create the Booking
-    with POST.
+    on POST request.
     :param request:
     :return:
     """
@@ -229,7 +238,7 @@ def checkout(request):
             return render(request, "hotel/checkout.html")
 
         # Get the cart from the session.
-        cart = request.session["cart"]
+        cart = _get_session_cart(request)
 
         # Build a list of rooms to book.
         total_price = 0
@@ -240,6 +249,7 @@ def checkout(request):
             # Add dates to the room from the users cart.
             room.arrival = cart[room_id].get('arrival')
             room.departure = cart[room_id].get('departure')
+            room.price = cart[room_id].get('price')
             room_list.append(room)
 
         # Render the checkout form.
@@ -272,16 +282,16 @@ def checkout(request):
                 booking = Booking(user=user, full_name=form.full_name(),
                                   room=room,
                                   hotel=hotel, confirmation=conf,
-                                  arrival_date=cart[room_id].get("arrival"),
-                                  departure_date=cart[room_id].get("arrival"),
+                                  arrival_date=room.arrival,
+                                  departure_date=room.departure,
                                   phone_number=form.cleaned_data["phone"],
-                                  price_booked=cart[room_id].get("price"))
+                                  price_booked=room.price)
                 booking.save()
 
                 # Reset the cart, booking was successful.
                 request.session['cart'] = {}
-                messages.add_message(request, messages.SUCCESS,
-                                     "Booking Successful. ")
+            messages.add_message(request, messages.SUCCESS,
+                                 "Booking Successful. ")
             return HttpResponseRedirect(
                 reverse("booking", args=(conf,)))
     except Room.DoesNotExist:
@@ -310,13 +320,34 @@ def booking(request, confirmation):
     booking_list = Booking.objects.filter(confirmation=confirmation).all()
     total_price = 0
     for booking in booking_list:
-        print(booking.price_booked)
         total_price += int(booking.price_booked)
+
+    hotel_count = booking_list.values('hotel').distinct().count()
+
     if not booking_list:
         messages.add_message(request, messages.WARNING,
                              "Bookings Not Found.")
     return render(request, "hotel/booking.html",
-                  {"booking_list": booking_list, "total_price": total_price})
+                  {"booking_list": booking_list, "total_price": total_price,
+                   "hotel_count": hotel_count})
+
+
+def _get_session_search(request):
+    if "search" in request.session:
+        return request.session["search"]
+    return None
+
+
+def _put_session_search(request, location, arrival, departure):
+    search = {"location": location, "arrival": arrival,
+              "departure": departure}
+    request.session["search"] = search
+
+
+def _get_session_cart(request):
+    if "cart" in request.session:
+        return request.session["cart"]
+    return None
 
 
 def login_view(request):
@@ -330,10 +361,9 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            # Set default dates for looking at rooms.
-            request.session['arrival'] = str(timezone.now())
-            request.session['departure'] = str(
-                timezone.now() + timedelta(days=1))
+            # Initialize the Search form with default dates.
+            _put_session_search(request, '', str(timezone.now()),
+                                str(timezone.now() + timedelta(days=1)))
 
             # Return User to the Booking process, if they have a return url.
             if request.POST['return_url']:

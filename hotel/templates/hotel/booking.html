@@ -22,8 +22,8 @@
                             <h6 class="my-0">{{ booking.room.label }}</h6>
                             <small class="text-muted">Room # {{ booking.room.number_on_door }}, max
                                 guests: {{ booking.room.max_guests }}</small><br/>
-                            <small class="text-muted">Dates: {{ booking.room.arrival|date }}
-                                - {{ booking.room.departure|date }}</small>
+                            <small class="text-muted">Dates: {{ booking.arrival_date }}
+                                - {{ booking.departure_date }}</small>
                         </div>
                         <span class="text-muted">${{ booking.price_booked }}</span>
                     </li>
@@ -37,7 +37,7 @@
         <div class="col-md-7">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Hotels Booked</span>
-                <span class="badge badge-secondary badge-pill">{{ booking_list|length }} </span>
+                <span class="badge badge-secondary badge-pill">{{ hotel_count }} </span>
             </h4>
             {% for booking in booking_list %}
                 {% ifchanged booking.hotel %}
@@ -63,8 +63,4 @@
     </div>
 {% endblock %}
 {% block script %}
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script type="text/babel" src="{% static '/hotel/room.js' %}"></script>
 {% endblock %}

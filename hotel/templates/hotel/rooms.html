@@ -43,8 +43,8 @@
                         <h1>Rooms at this Hotel</h1>
                         <div class="row">
                             <!-- Availability form and rooms list -->
-                            <div id="form" data-arrival="{{ request.session.arrival }}"
-                                 data-departure="{{ request.session.departure }}"
+                            <div id="form" data-arrival="{{ request.session.search.arrival }}"
+                                 data-departure="{{ request.session.search.departure }}"
                                  data-hotel="{{ hotel.id }}"
                                  data-cart="{{ request.session.cart }}"/>
                         </div>

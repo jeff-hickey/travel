@@ -63,7 +63,7 @@ class RoomForm extends React.Component {
     }
 
     handleCart(room_id, price) {
-        fetch(`/cart/${room_id}/${price}`)
+        fetch(`/cart/${room_id}/${this.state.arrival}/${this.state.departure}/${price}`)
             .then((res) => {
                 console.log(res)
                 return res.json()
@@ -135,20 +135,21 @@ class RoomForm extends React.Component {
                                 <p className="card-text">{room.about}</p>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div className="btn-group">
-                                        {!(room.id in this.state.cart) &&
+                                        {/* Room is not in cart. */}
+                                        {!(room.id in this.state.cart) && room.available &&
                                         <button type="button" onClick={() => this.handleCart(room.id, room.price)}
                                                 className="btn btn-sm btn-secondary">Add to Cart
-
                                         </button>}
-                                        {room.available && <p>Room Avaialble</p>}
-                                        {!(room.available) && <p>Room NO GO</p>}
+                                        {!(room.id in this.state.cart) && !(room.available) &&
+                                        <h5 className="pink-shadow-text">Not Available.</h5>}
+                                        {/* Room is in cart. */}
                                         {(room.id in this.state.cart) &&
                                         <button type="button" onClick={() => this.handleCart(room.id, room.price)}
                                                 className="btn btn-sm btn-outline-secondary">Remove from Cart
 
                                         </button>}
                                     </div>
-                                    <small className="text-muted">9 mins</small>
+                                    <h4 className="pink-shadow-text">${room.price}</h4>
                                 </div>
                             </div>
                         </div>
