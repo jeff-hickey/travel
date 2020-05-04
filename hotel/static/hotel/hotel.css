@@ -64,6 +64,7 @@ a:hover {
 .nav-link + .nav-link {
     margin-left: 1rem;
 }
+
 .active {
     color: #fff;
     border-bottom-color: deeppink;
@@ -82,8 +83,13 @@ a:hover {
     border: .05rem solid hotpink;
 }
 
+/* Image borrowed from https://images.dawn.com/news/1182474 */
 .bg-image {
-    background-image: url("http://localhost:8000/static/bg-image.jpg");
+    background-image: url("http://localhost:8000/static/hotel/bg-image.png");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* White shadow text*/

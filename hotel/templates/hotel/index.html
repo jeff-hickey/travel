@@ -3,10 +3,7 @@
 {% block body %}
     <section class="jumbotron text-center bg-image">
         <div class="container">
-            <h1 class="white-shadow-text">Vacation, yeah lets do that.</h1>
-            <a href="#" class="btn btn-secondary my-2">Something here</a>
-            </p>
-
+            <h1 class="white-shadow-text">Time to travel, lets go!</h1>
         </div>
         <div class="container">
             <div class="row">
@@ -47,8 +44,7 @@
             <h1>All Hotels</h1>
             <div class="row">
                 {% for hotel in hotels %}
-
-                    <div class="col-md-4">
+                    <div class="col-md-6 col-sm-6 col-lg-4">
                         <div class="card mb-4 box-shadow">
                             {% if hotel.image_url %}
                                 <img class="card-img-top"

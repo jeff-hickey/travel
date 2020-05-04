@@ -232,9 +232,11 @@ def checkout(request):
         cart = request.session["cart"]
 
         # Build a list of rooms to book.
+        total_price = 0
         room_list = []
         for room_id in cart:
             room = Room.objects.get(pk=room_id)
+            total_price += int(room.price)
             # Add dates to the room from the users cart.
             room.arrival = cart[room_id].get('arrival')
             room.departure = cart[room_id].get('departure')
@@ -249,7 +251,8 @@ def checkout(request):
                          'username': user.username,
                          'email': user.email})
             return render(request, "hotel/checkout.html",
-                          {"form": form, "room_list": room_list})
+                          {"form": form, "room_list": room_list,
+                           "total_price": total_price})
 
         # Validate the checkout form and store the booking.
         else:
@@ -305,11 +308,15 @@ def booking(request, confirmation):
 
     # Include all Room details.
     booking_list = Booking.objects.filter(confirmation=confirmation).all()
+    total_price = 0
+    for booking in booking_list:
+        print(booking.price_booked)
+        total_price += int(booking.price_booked)
     if not booking_list:
         messages.add_message(request, messages.WARNING,
                              "Bookings Not Found.")
     return render(request, "hotel/booking.html",
-                  {"booking_list": booking_list})
+                  {"booking_list": booking_list, "total_price": total_price})
 
 
 def login_view(request):
