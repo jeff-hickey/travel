@@ -1,5 +1,3 @@
-import uuid
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
@@ -42,7 +40,6 @@ class Hotel(models.Model):
     about_hotel = models.TextField(max_length=10000)
     amenity_list = models.ManyToManyField(Amenity,
                                           related_name='amenity_list')
-    # room_list = models.ManyToManyField(Room, related_name='room_list')
     image_url = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
@@ -57,13 +54,12 @@ class Hotel(models.Model):
             "about": self.about_hotel,
             "amenities": [amenity.label for amenity in
                           self.amenity_list.all()],
-            # "rooms": [room.serialize() for room in self.room_list.all()],
             "image_url": self.image_url,
         }
 
 
 class Room(models.Model):
-    # Attributes used by view.
+    # Attributes used by view for displaying Rooms.
     available = True
     arrival = timezone.now()
     departure = timezone.now()
@@ -100,6 +96,10 @@ class Room(models.Model):
 
 
 class Booking(models.Model):
+    """
+    Repressents a one or many of Rooms plus Hotel combinations, booked with
+    the same arrival and departure, grouped by a common confirmation value.
+    """
     create_date = models.DateTimeField(auto_now=True)
     confirmation = models.PositiveIntegerField()
 

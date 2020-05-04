@@ -1,35 +1,20 @@
 import datetime
 from django.test import Client, TestCase
-# from selenium.webdriver.support.select import Select
 
 from .models import Booking, Room, User, Location, Hotel, Amenity, Category
+
 
 #  Set testing year to next year.
 def test_year():
     return datetime.date.today().year + 1
 
 
-# class HomePageTests(TestCase):
-#
-#     def setUp(self):
-#         self.browser = webdriver.Chrome()
-#         self.addCleanup(self.browser.quit)
-#
-#     def test_home_page(self):
-#         self.browser.get('http://localhost:8000/')
-#         self.assertIn('Hotel', self.browser.title)
-#
-#         self.browser.
-#         location = Select(self.browser.find_element_by_id('id_location'))
-#         for o in location.options:
-#             print(o.text)
-#
-#         print(self.live_server_url)
-#         search_button = self.browser.find_element_by_id('search_hotels')
-#         search_button.click()
-
-
-class BookingTestCase(TestCase):
+class RoomAvailabilityCase(TestCase):
+    """
+    Sets up Room data and books the room for next year. Subsequent
+    tests target availability scenarios before, during or after the
+    booking created.
+    """
 
     def setUp(self):
         user = User.objects.create_user("test", "test@home.com", "crossfit")
@@ -44,7 +29,7 @@ class BookingTestCase(TestCase):
         amenity2 = Amenity.objects.create(label="6 Pools with Hot Tub",
                                           category=category1)
 
-        # Create the Hotel adding amenitues.
+        # Create the Hotel adding amenities.
         hotel1 = Hotel.objects.create(label="Test Hotel", location=location1,
                                       about_hotel="Wonderful hotel.")
 
@@ -62,14 +47,15 @@ class BookingTestCase(TestCase):
 
     def test_room_availability(self):
         c = Client()
-        # No availability, same dates
+
+        # No availability, same dates as booked in setup.
         response = c.get(
             f"/get_room_available/1/{datetime.date(test_year(), 6, 1)}/"
             + f"{datetime.date(test_year(), 6, 5)}")
-        self.assertTrue(response.json()['room-availability'])
+        self.assertEquals(response.json()['room-availability'], "False")
         self.assertEqual(response.status_code, 403)
 
-        # No availability, arrival before booked arrival
+        # No availability, arrival before booked arrival.
         response = c.get(
             f"/get_room_available/1/{datetime.date(test_year(), 5, 29)}/"
             + f"{datetime.date(test_year(), 6, 5)}")
@@ -77,7 +63,7 @@ class BookingTestCase(TestCase):
         self.assertEqual(response.status_code, 403)
 
         # No availability, arrival after booked arrival, departure before
-        # booked departure
+        # booked departure.
         response = c.get(
             f"/get_room_available/1/{datetime.date(test_year(), 6, 2)}/"
             + f"{datetime.date(test_year(), 6, 4)}")

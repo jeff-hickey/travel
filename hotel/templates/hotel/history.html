@@ -6,6 +6,7 @@
         {% include 'hotel/messages.html' %}
         <div class="list-group mt-2">
             {% for booking in history %}
+                {% ifchanged booking.confirmation %}
                 <a href="{% url 'booking' booking.confirmation %}"
                    class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
@@ -17,6 +18,7 @@
                     </p>
                     <small class="text-left">Booked on {{ booking.create_date|date }}</small>
                 </a>
+                {% endifchanged %}
             {% endfor %}
         </div>
     </div>

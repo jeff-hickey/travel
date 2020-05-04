@@ -6,7 +6,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 {{ message |safe }}
-                    {{ form.name_of_field.errors }}
+                {{ form.non_field_errors }}
             </div>
         {% endfor %}
     </div>

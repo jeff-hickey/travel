@@ -36,6 +36,8 @@ def search(request):
     form = SearchForm(request.POST)
     if not form.is_valid():
         print(form.errors)
+        messages.add_message(request, messages.WARNING,
+                             "There was an error.")
         return render(request, "hotel/search.html",
                       {"home_page": "active", "form": form})
 
@@ -47,6 +49,7 @@ def search(request):
     # Get hotels for the location specified.
     hotels = Hotel.objects.filter(location=form.cleaned_data['location']).all()
     if not hotels:
+        print("NO HOTELS")
         messages.add_message(request, messages.WARNING,
                              "No hotels found.")
 
@@ -55,12 +58,12 @@ def search(request):
 
 
 def get_room_available(request, room_id, arrival, departure):
-    if room_available(request, room_id, arrival, departure):
+    if _room_available(request, room_id, arrival, departure):
         return JsonResponse({"room-availability": "True"}, status=201)
     return JsonResponse({"room-availability": "False"}, status=403)
 
 
-def room_available(request, room_id, arrival, departure):
+def _room_available(request, room_id, arrival, departure):
     room = Room.objects.get(pk=room_id)
 
     # A booked arrival date is less than the requested arrival date and booked
@@ -108,22 +111,22 @@ def hotel_rooms(request, hotel_id, arrival, departure):
         new_departure = datetime.datetime.strptime(
             departure, "%Y-%m-%d").date()
 
+        final_list = []
         for room in room_list:
             # Make sure rooms are available.
-            available = room_available(request, room.id, new_arrival,
-                                       new_departure)
+            available = _room_available(request, room.id, new_arrival,
+                                        new_departure)
             if not available:
                 room.available = False
+            final_list.append(room)
 
     except Hotel.DoesNotExist:
         return JsonResponse({"error": "Hotel does not exist."}, status=404)
 
     if request.method == 'GET':
         json_data = {
-            "rooms": [room.serialize() for room in room_list.all()]
+            "rooms": [room.serialize() for room in final_list]
         }
-        print(json_data)
-
         return JsonResponse(json_data, safe=False);
 
 
@@ -226,8 +229,8 @@ def checkout(request):
             # Create a booking record per room with common confirmation.
             for room in room_list:
                 print("ABOUT TO BOOK ROOMS")
-                hotel = Hotel.objects.get(pk=room.hotel)
-                booking = Booking(user=user, full_name=form.full_name,
+                hotel = Hotel.objects.get(pk=room.hotel.id)
+                booking = Booking(user=user, full_name=form.full_name(),
                                   room=room,
                                   hotel=hotel, confirmation=conf,
                                   arrival_date=cart[room_id].get("arrival"),
@@ -237,7 +240,7 @@ def checkout(request):
                 booking.save()
 
                 # Remove the cart, booking successful.
-                del request.session['cart']
+                request.session['cart'] = {}
                 messages.add_message(request, messages.SUCCESS,
                                      "Booking Successful. ")
             return HttpResponseRedirect(

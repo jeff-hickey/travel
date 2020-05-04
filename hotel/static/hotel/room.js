@@ -15,12 +15,30 @@ class RoomForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCart = this.handleCart.bind(this);
+        this.arrivalPicker = React.createRef();
+        this.arrivalFlatPickr = this.arrivalFlatPickr.bind(this);
+
+        this.departurePicker = React.createRef();
+        this.departureFlatPickr = this.departureFlatPickr.bind(this);
+    }
+
+    arrivalFlatPickr() {
+        flatpickr(this.arrivalPicker.current);
+    }
+
+    departureFlatPickr() {
+        flatpickr(this.departurePicker.current);
     }
 
     componentDidMount() {
-        console.log(this.state.hotel);
-        console.log(this.state.arrival);
-        console.log(this.state.departure);
+        // Populate the room list.
+        this.fetchRooms()
+        if (this.state.loaded) {
+            this.arrivalFlatPickr()
+        }
+    }
+
+    fetchRooms() {
         fetch(`/hotel-rooms/${this.state.hotel}/${this.state.arrival}/${this.state.departure}`)
             .then(response => {
                 if (response.status > 400) {
@@ -33,6 +51,8 @@ class RoomForm extends React.Component {
             })
             .then(data => {
                 console.log(data)
+                console.log("setstate")
+                console.log()
                 this.setState(() => {
                     return {
                         rooms: data.rooms,
@@ -62,8 +82,10 @@ class RoomForm extends React.Component {
     }
 
     handleSubmit(event) {
-        // Todo: make this work
-        alert('Your favorite flavor is: ' + this.state.value);
+        this.setState({
+            loaded: false
+        });
+        this.fetchRooms();
         event.preventDefault();
     }
 
@@ -77,14 +99,16 @@ class RoomForm extends React.Component {
                             <div className="form-row">
                                 <div className="col-lg-4">
                                     <h6 className="card-text white-shadow-text float-left">Arrival</h6><br/>
-                                    <input id="arrival" name="arrival" type="text" value={this.state.arrival}
-                                           onChange={this.handleChange}
+                                    <input id="arrival" ref={this.arrivalPicker} name="arrival" type="text"
+                                           value={this.state.arrival}
+                                           onChange={this.handleChange} onClick={this.setupFlatPickr}
                                            className="form-control form-control-sm"/>
                                 </div>
                                 <div className="col-lg-4">
                                     <h6 className="card-text white-shadow-text float-left">Departure</h6>
-                                    <input id="departure" name="departure" type="text" value={this.state.departure}
-                                           onChange={this.handleChange}
+                                    <input id="departure" ref={this.departurePicker} name="departure" type="text"
+                                           value={this.state.departure}
+                                           onChange={this.handleChange} onClick={this.setupFlatPickr}
                                            className="form-control form-control-sm"/>
                                 </div>
                                 <div className="col-lg-4">
@@ -107,7 +131,7 @@ class RoomForm extends React.Component {
                         <div key={room.id} className="card mb-4 box-shadow">
                             {room.image_url && <img src={room.image_url} className="card-img-top" alt={room.label}/>}
                             <div className="card-body">
-                                <h5 className="card-title">{room.label}</h5>
+                                <h5 className="card-title">{room.label} {room.available}</h5>
                                 <p className="card-text">{room.about}</p>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div className="btn-group">
