@@ -6,7 +6,6 @@
     padding-top: var(--jumbotron-padding-y);
     padding-bottom: var(--jumbotron-padding-y);
     margin-bottom: 0;
-    background-color: #fff;
 }
 
 @media (min-width: 768px) {
@@ -85,8 +84,9 @@ a:hover {
 
 /* Image borrowed from https://images.dawn.com/news/1182474 */
 .bg-image {
-    background-image: url("http://localhost:8000/static/hotel/bg-image.png");
+    background-image: url("http://localhost:8000/static/hotel/bg-image-2.png");
     height: 100%;
+    color: dimgray;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
