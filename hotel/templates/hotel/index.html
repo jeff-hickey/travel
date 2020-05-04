@@ -79,7 +79,6 @@
         document.addEventListener('DOMContentLoaded', function () {
             arrival = document.querySelector('#id_arrival');
             flatpickr(arrival, {minDate: "today",});
-
             departure = document.querySelector('#id_departure');
             flatpickr(departure, {minDate: new Date().fp_incr(1)});
         })

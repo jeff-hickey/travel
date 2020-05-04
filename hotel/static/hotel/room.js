@@ -3,7 +3,7 @@ class RoomForm extends React.Component {
         super(props);
         const div = document.querySelector('#form');
         let cart_data = (div.dataset.cart ?
-            JSON.parse(div.dataset.cart.replace(/'/g, '"')) : {})
+            JSON.parse(div.dataset.cart.replace(/'/g, '"')) : {});
         this.state = {
             arrival: div.dataset.arrival,
             departure: div.dataset.departure,
@@ -11,38 +11,24 @@ class RoomForm extends React.Component {
             cart: cart_data,
             loaded: false
         };
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCart = this.handleCart.bind(this);
-        this.arrivalPicker = React.createRef();
-        this.arrivalFlatPickr = this.arrivalFlatPickr.bind(this);
 
-        this.departurePicker = React.createRef();
-        this.departureFlatPickr = this.departureFlatPickr.bind(this);
-    }
-
-    arrivalFlatPickr() {
-        flatpickr(this.arrivalPicker.current);
-    }
-
-    departureFlatPickr() {
-        flatpickr(this.departurePicker.current);
     }
 
     componentDidMount() {
         // Populate the room list.
-        this.fetchRooms()
-        if (this.state.loaded) {
-            this.arrivalFlatPickr()
-        }
+        this.fetchRooms(this.state.arrival);
+        flatpickr(ReactDOM.findDOMNode(this.refs.arrivalPicker), {minDate: "today",});
+        flatpickr(ReactDOM.findDOMNode(this.refs.departurePicker), {minDate: new Date().fp_incr(1)});
     }
 
-    fetchRooms() {
+    fetchRooms(arrival) {
         fetch(`/hotel-rooms/${this.state.hotel}/${this.state.arrival}/${this.state.departure}`)
             .then(response => {
                 if (response.status > 400) {
-                    console.log('Something went wrong')
+                    console.log('Something went wrong');
                     return this.setState(() => {
                         return {error: "Unable to Load Rooms."};
                     });
@@ -50,9 +36,6 @@ class RoomForm extends React.Component {
                 return response.json();
             })
             .then(data => {
-                console.log(data)
-                console.log("setstate")
-                console.log()
                 this.setState(() => {
                     return {
                         rooms: data.rooms,
@@ -65,7 +48,6 @@ class RoomForm extends React.Component {
     handleCart(room_id, price) {
         fetch(`/cart/${room_id}/${this.state.arrival}/${this.state.departure}/${price}`)
             .then((res) => {
-                console.log(res)
                 return res.json()
             })
             .then((result) => {
@@ -82,11 +64,14 @@ class RoomForm extends React.Component {
     }
 
     handleSubmit(event) {
-        this.setState({
-            loaded: false
-        });
-        this.fetchRooms();
         event.preventDefault();
+        this.setState({
+            arrival: this.refs.arrivalPicker.value,
+            departure: this.refs.departurePicker.value,
+            loaded: false
+        }, () => {
+            this.fetchRooms(this.state.arrival);
+        })
     }
 
     render() {
@@ -96,25 +81,27 @@ class RoomForm extends React.Component {
                     <div className="card-body">
                         <form onSubmit={this.handleSubmit} className="form-inline mt-2">
                             <input type="hidden" id="hotel" value={this.state.hotel_id}/>
-                            <div className="form-row">
+                            <div className="row">
                                 <div className="col-lg-4">
-                                    <h6 className="card-text white-shadow-text float-left">Arrival</h6><br/>
-                                    <input id="arrival" ref={this.arrivalPicker} name="arrival" type="text"
+                                    <label for="arrival" className="float-left"><small
+                                        className="card-text text-white">Arrival</small></label>
+                                    <input id="arrival" ref="arrivalPicker" name="arrival" type="text"
                                            value={this.state.arrival}
-                                           onChange={this.handleChange} onClick={this.setupFlatPickr}
+                                           onChange={this.handleChange}
                                            className="form-control form-control-sm"/>
                                 </div>
                                 <div className="col-lg-4">
-                                    <h6 className="card-text white-shadow-text float-left">Departure</h6>
-                                    <input id="departure" ref={this.departurePicker} name="departure" type="text"
+                                    <label htmlFor="departure" className="float-left"><small
+                                        className="card-text text-white">Departure</small></label>
+                                    <input id="departure" ref="departurePicker" name="departure" type="text"
                                            value={this.state.departure}
-                                           onChange={this.handleChange} onClick={this.setupFlatPickr}
+                                           onChange={this.handleChange}
                                            className="form-control form-control-sm"/>
                                 </div>
                                 <div className="col-lg-4">
                                     <input type="submit" id="search_hotels"
-                                           className="btn ml-4 mt-4 btn-sm btn-secondary"
-                                           value="Update."/>
+                                           className="btn ml-2 mt-3 btn-md btn-secondary"
+                                           value="Update Rooms."/>
                                 </div>
                             </div>
                         </form>
@@ -138,14 +125,14 @@ class RoomForm extends React.Component {
                                         {/* Room is not in cart. */}
                                         {!(room.id in this.state.cart) && room.available &&
                                         <button type="button" onClick={() => this.handleCart(room.id, room.price)}
-                                                className="btn btn-sm btn-secondary">Add to Cart
+                                                className="btn btn-md btn-secondary">Add to Cart
                                         </button>}
                                         {!(room.id in this.state.cart) && !(room.available) &&
                                         <h5 className="pink-shadow-text">Not Available.</h5>}
                                         {/* Room is in cart. */}
                                         {(room.id in this.state.cart) &&
                                         <button type="button" onClick={() => this.handleCart(room.id, room.price)}
-                                                className="btn btn-sm btn-outline-secondary">Remove from Cart
+                                                className="btn btn-md btn-outline-secondary">Remove from Cart
 
                                         </button>}
                                     </div>

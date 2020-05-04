@@ -18,13 +18,11 @@ from hotel.models import User, Hotel, Booking, Room
 def index(request):
     # Default route for the Hotel website.
     search = _get_session_search(request)
-    print(search)
 
     if search:
         form = SearchForm({"arrival": search.get("arrival"),
                            "departure": search.get("departure"),
                            "location": search.get("location")})
-        print(form)
     else:
         form = SearchForm()
     hotels = Hotel.objects.all()
@@ -41,7 +39,6 @@ def search(request):
     # Validate the search input.
     form = SearchForm(request.POST)
     if not form.is_valid():
-        print(form.errors)
         messages.add_message(request, messages.WARNING,
                              "There was an error.")
         return render(request, "hotel/search.html",
@@ -131,6 +128,7 @@ def hotel_rooms(request, hotel_id, arrival, departure):
         # Create date objects from the string parameters.
         new_arrival = datetime.datetime.strptime(
             arrival, "%Y-%m-%d").date()
+
         new_departure = datetime.datetime.strptime(
             departure, "%Y-%m-%d").date()
         # Update the current user search parameters.
