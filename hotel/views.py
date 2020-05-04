@@ -136,6 +136,7 @@ def hotel_rooms(request, hotel_id, arrival, departure):
 
         new_departure = datetime.datetime.strptime(
             departure, "%Y-%m-%d").date()
+
         # Update the current user search parameters.
         _put_session_search(request, hotel.location.id, str(new_arrival),
                             str(new_departure))

@@ -79,10 +79,11 @@ class RoomForm extends React.Component {
             <div className="col-md-12">
                 <div className="card bg-pink mb-4 box-shadow">
                     <div className="card-body">
+
                         <form onSubmit={this.handleSubmit} className="form-inline mt-2">
                             <input type="hidden" id="hotel" value={this.state.hotel_id}/>
                             <div className="row">
-                                <div className="col-lg-4">
+                                <div className="col-lg-4 col-md-4">
                                     <label htmlFor="arrival" className="float-left"><small
                                         className="card-text text-white">Arrival</small></label>
                                     <input id="arrival" ref="arrivalPicker" name="arrival" type="text"
@@ -90,7 +91,7 @@ class RoomForm extends React.Component {
                                            onChange={this.handleChange}
                                            className="form-control form-control-sm"/>
                                 </div>
-                                <div className="col-lg-4">
+                                <div className="col-lg-4 col-md-4">
                                     <label htmlFor="departure" className="float-left"><small
                                         className="card-text text-white">Departure</small></label>
                                     <input id="departure" ref="departurePicker" name="departure" type="text"
@@ -98,7 +99,7 @@ class RoomForm extends React.Component {
                                            onChange={this.handleChange}
                                            className="form-control form-control-sm"/>
                                 </div>
-                                <div className="col-lg-4">
+                                <div className="col-lg-4 col-md-4">
                                     <input type="submit" id="search_hotels"
                                            className="btn ml-2 mt-3 btn-md btn-secondary"
                                            value="Update Rooms."/>
