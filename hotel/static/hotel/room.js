@@ -83,7 +83,7 @@ class RoomForm extends React.Component {
                             <input type="hidden" id="hotel" value={this.state.hotel_id}/>
                             <div className="row">
                                 <div className="col-lg-4">
-                                    <label for="arrival" className="float-left"><small
+                                    <label htmlFor="arrival" className="float-left"><small
                                         className="card-text text-white">Arrival</small></label>
                                     <input id="arrival" ref="arrivalPicker" name="arrival" type="text"
                                            value={this.state.arrival}

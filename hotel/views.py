@@ -4,7 +4,7 @@ import random
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import timedelta
-from django.utils import timezone
+from django.utils import timezone, dateformat
 from django.contrib.auth import authenticate, logout, login
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, JsonResponse
@@ -100,13 +100,18 @@ def _room_available(request, room_id, arrival, departure):
 
 
 def hotel(request, hotel_id):
+    hotel = Hotel.objects.get(pk=hotel_id)
+    # Check for search info in session and initialize if needed.
+    if not _get_session_cart(request):
+        _init_session_search(request)
+
     # Default route for the Hotel page displaying Rooms, requires login.
     if not request.user.is_authenticated:
         # Provide a return URL for the User, after they have logged in.
         return_url = f'hotel/{hotel_id}'
         return render(request, "hotel/login.html",
                       {"login_page": "active", "return_url": return_url})
-    hotel = Hotel.objects.get(pk=hotel_id)
+
     return render(request, "hotel/rooms.html", {"hotel": hotel})
 
 
@@ -186,6 +191,8 @@ def cart(request, room_id, arrival, departure, price):
     along with price arrival and departure dates.
     :param request:
     :param room_id:
+    :param arrival:
+    :param departure:
     :param price:
     :return:
     """
@@ -336,6 +343,13 @@ def _get_session_search(request):
     return None
 
 
+def _init_session_search(request):
+    tomorrow = dateformat.format(timezone.now() + timedelta(days=1), 'Y-m-d')
+    in_two_days = dateformat.format(timezone.now() + timedelta(days=2),
+                                    'Y-m-d')
+    _put_session_search(request, '', str(tomorrow), str(in_two_days))
+
+
 def _put_session_search(request, location, arrival, departure):
     search = {"location": location, "arrival": arrival,
               "departure": departure}
@@ -359,9 +373,8 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            # Initialize the Search form with default dates.
-            _put_session_search(request, '', str(timezone.now()),
-                                str(timezone.now() + timedelta(days=1)))
+            # Initialize the Search form with default settings.
+            _init_session_search(request)
 
             # Return User to the Booking process, if they have a return url.
             if request.POST['return_url']:
@@ -406,6 +419,7 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
+        _init_session_search(request)
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "hotel/register.html",
