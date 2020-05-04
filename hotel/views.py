@@ -1,12 +1,10 @@
 import datetime
-import json
 import random
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import timedelta
 from django.utils import timezone
-from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate, logout, login
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, JsonResponse
@@ -32,6 +30,11 @@ def index(request):
 
 
 def search(request):
+    """
+    Handles Hotel search queries from the Home and Search pages.
+    :param request: POST containging arrival and departure dates, location.
+    :return: List of Hotels.
+    """
     # Validate the search input.
     form = SearchForm(request.POST)
     if not form.is_valid():
@@ -58,6 +61,14 @@ def search(request):
 
 
 def get_room_available(request, room_id, arrival, departure):
+    """
+    API for looking up room availability.
+    :param request:
+    :param room_id:
+    :param arrival:
+    :param departure:
+    :return: True or False room-availability in json format.
+    """
     if _room_available(request, room_id, arrival, departure):
         return JsonResponse({"room-availability": "True"}, status=201)
     return JsonResponse({"room-availability": "False"}, status=403)
@@ -90,7 +101,7 @@ def _room_available(request, room_id, arrival, departure):
 
 
 def hotel(request, hotel_id):
-    # Default route for the Hotel page with rooms, requires login.
+    # Default route for the Hotel page displaying Rooms, requires login.
     if not request.user.is_authenticated:
         # Provide a return URL for the User, after they have logged in.
         return_url = f'hotel/{hotel_id}'
@@ -101,16 +112,26 @@ def hotel(request, hotel_id):
 
 
 def hotel_rooms(request, hotel_id, arrival, departure):
+    """
+    API method returning available rooms for specified hotel.
+    :param request:
+    :param hotel_id:
+    :param arrival:
+    :param departure:
+    :return: List of rooms in json format with availability flags set.
+    """
     try:
+        # Lookup the hotel.
         hotel = Hotel.objects.get(pk=hotel_id)
         room_list = Room.objects.filter(hotel=hotel).all()
 
+        # Create date objects from the string parameters.
         new_arrival = datetime.datetime.strptime(
             arrival, "%Y-%m-%d").date()
-
         new_departure = datetime.datetime.strptime(
             departure, "%Y-%m-%d").date()
 
+        # Build a ist of rooms with availability flags set.
         final_list = []
         for room in room_list:
             # Make sure rooms are available.
@@ -127,13 +148,18 @@ def hotel_rooms(request, hotel_id, arrival, departure):
         json_data = {
             "rooms": [room.serialize() for room in final_list]
         }
-        return JsonResponse(json_data, safe=False);
+        return JsonResponse(json_data, safe=False)
 
 
 @login_required
 def history(request):
+    """
+    Retrieves a users booking history.
+    :param request:
+    :return:
+    """
     try:
-        user = User.objects.get(pk=request.user.id);
+        user = User.objects.get(pk=request.user.id)
         history = Booking.objects.filter(user=user).all().order_by(
             "-create_date")
         if not history:
@@ -148,9 +174,18 @@ def history(request):
 
 
 def cart(request, room_id, price):
+    """
+    Removes a Room if it exists or Stores the Room in the users session
+    along with price arrival and departure dates.
+    :param request:
+    :param room_id:
+    :param price:
+    :return:
+    """
     if not request.user.is_authenticated:
         return JsonResponse({"error": "User is not authenticated."},
                             status=401)
+    # Create the room to added to cart.
     room = {"id": room_id, "arrival": request.session['arrival'],
             "departure": request.session['departure'], "price": price}
 
@@ -175,10 +210,15 @@ def cart(request, room_id, price):
 
 
 def checkout(request):
+    """
+    Render the checkout page for GET requests or create the Booking
+    with POST.
+    :param request:
+    :return:
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     try:
-        print("CHECKOUT")
         # User info is needed for the checkout process.
         user = User.objects.get(pk=request.user.id)
 
@@ -195,7 +235,7 @@ def checkout(request):
         room_list = []
         for room_id in cart:
             room = Room.objects.get(pk=room_id)
-            # Add dates to the room, stored in the users cart.
+            # Add dates to the room from the users cart.
             room.arrival = cart[room_id].get('arrival')
             room.departure = cart[room_id].get('departure')
             room_list.append(room)
@@ -213,22 +253,18 @@ def checkout(request):
 
         # Validate the checkout form and store the booking.
         else:
-            print("STORE")
-            # Validate the checkout form.
             form = CheckOutForm(request.POST)
             if not form.is_valid():
-                print(form.errors)
                 messages.add_message(request, messages.WARNING,
                                      "Form is invalid. ")
                 return render(request, "hotel/checkout.html",
                               {"form": form, "room_list": room_list})
-            print("FORM IS VALID")
+
             # Generate a confirmation number.
             conf = random.randrange(10000, 99999)
 
             # Create a booking record per room with common confirmation.
             for room in room_list:
-                print("ABOUT TO BOOK ROOMS")
                 hotel = Hotel.objects.get(pk=room.hotel.id)
                 booking = Booking(user=user, full_name=form.full_name(),
                                   room=room,
@@ -239,7 +275,7 @@ def checkout(request):
                                   price_booked=cart[room_id].get("price"))
                 booking.save()
 
-                # Remove the cart, booking successful.
+                # Reset the cart, booking was successful.
                 request.session['cart'] = {}
                 messages.add_message(request, messages.SUCCESS,
                                      "Booking Successful. ")
@@ -267,7 +303,7 @@ def booking(request, confirmation):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
 
-    # Includes all Room details.
+    # Include all Room details.
     booking_list = Booking.objects.filter(confirmation=confirmation).all()
     if not booking_list:
         messages.add_message(request, messages.WARNING,
