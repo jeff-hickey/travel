@@ -2,20 +2,18 @@
 {% load static %}
 {% block body %}
     <main role="main mt-0">
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
 
     <div class="container">
     <div class="py-5 text-center">
-        <h3>Booking  #{{ booking_list.first.confirmation }} for {{booking_list.first.full_name}}</h3>
-        <small>Username: @{{ user.username }}, Email: {{ user.email }}, Phone: {{ booking_list.first.phone_number }}</small>
+        <h3>Booking #{{ booking_list.first.confirmation }} for {{ booking_list.first.full_name }}</h3>
+        <small>Username: @{{ user.username }}, Email: {{ user.email }},
+            Phone: {{ booking_list.first.phone_number }}</small>
     </div>
     <div class="row">
         <div class="col-md-5 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Room Charges</span>
-                <span class="badge badge-secondary badge-pill">{{ request.session.cart|length }} </span>
+                <span class="text-muted">Rooms and Charges</span>
+                <span class="badge badge-secondary badge-pill">{{ booking_list|length }} </span>
             </h4>
             <ul class="list-group mb-3">
                 {% for booking in booking_list %}
@@ -24,7 +22,8 @@
                             <h6 class="my-0">{{ booking.room.label }}</h6>
                             <small class="text-muted">Room # {{ room.number_on_door }}, max
                                 guests: {{ room.max_guests }}</small><br/>
-                            <small class="text-muted">Dates: {{ booking.room.arrival|date }} - {{ booking.room.departure|date }}</small>
+                            <small class="text-muted">Dates: {{ booking.room.arrival|date }}
+                                - {{ booking.room.departure|date }}</small>
                         </div>
                         <span class="text-muted">${{ booking.room.price }}</span>
                     </li>
@@ -35,32 +34,30 @@
                 </li>
             </ul>
         </div>
-        // TODO: Insert cool hotel + rooms cards here
-        <div class="col-md-7 order-md-1">
-            <h4 class="mb-3">Guest Info</h4>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="firstName">Guest Name:</label>
-                    {{ booking_list.first.full_name }}
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="address">Phone</label>
-                {{ booking_list.first.phone }}
-            </div>
-            <div class="mb-3">
-                <label for="username">Username</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">@</span>
+        <div class="col-md-7">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Hotels Booked</span>
+                <span class="badge badge-secondary badge-pill">{{ booking_list|length }} </span>
+            </h4>
+            {% for booking in booking_list %}
+                {% ifchanged booking.hotel %}
+                    <div class="card mb-4 box-shadow">
+                        {% if booking.hotel.image_url %}
+                            <img class="card-img-top"
+                                 src="{{ booking.hotel.image_url }}"
+                                 alt="{{ booking.hotel.label }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ booking.hotel.label }}</h5>
+                            <p class="card-text">{{ booking.hotel.about_hotel }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">&nbsp;</div>
+                                <small class="text-muted">{{ booking.hotel.location }}</small>
+                            </div>
+                        </div>
                     </div>
-                    {{ user.username }}
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="email">Email <span class="text-muted"></span></label>
-                {{ email }}
-            </div>
+                {% endifchanged %}
+            {% endfor %}
         </div>
 
     </div>

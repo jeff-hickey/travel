@@ -73,22 +73,6 @@ a:hover {
     margin-bottom: 0;
 }
 
-.nav-masthead .nav-link {
-    padding: .25rem 0;
-    font-weight: 700;
-    color: aliceblue;
-    background-color: transparent;
-    border-bottom: .25rem solid transparent;
-}
-
-.nav-masthead .nav-link:hover,
-.nav-masthead .nav-link:focus {
-    border-bottom-color: deeppink;
-}
-
-.nav-masthead .nav-link + .nav-link {
-    margin-left: 1rem;
-}
 
 .nav-masthead .active {
     color: #fff;

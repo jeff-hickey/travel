@@ -34,11 +34,42 @@ class Amenity(models.Model):
         return f"{self.label}"
 
 
+class Hotel(models.Model):
+    create_date = models.DateTimeField(auto_now=True)
+    label = models.CharField(max_length=64)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,
+                                 related_name='hotel_location')
+    about_hotel = models.TextField(max_length=10000)
+    amenity_list = models.ManyToManyField(Amenity,
+                                          related_name='amenity_list')
+    # room_list = models.ManyToManyField(Room, related_name='room_list')
+    image_url = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return f"{self.label}"
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "create-date": self.create_date.strftime(
+                "%b %-d %Y, %-I:%M %p"),
+            "label": self.label,
+            "about": self.about_hotel,
+            "amenities": [amenity.label for amenity in
+                          self.amenity_list.all()],
+            # "rooms": [room.serialize() for room in self.room_list.all()],
+            "image_url": self.image_url,
+        }
+
+
 class Room(models.Model):
-    # Flag a room as available as determined by views.room_availability.
+    # Attributes used by view.
     available = True
     arrival = timezone.now()
     departure = timezone.now()
+
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE,
+                              related_name='hotel')
     create_date = models.DateTimeField(auto_now=True)
     label = models.CharField(max_length=64)
     about_room = models.TextField(max_length=5000)
@@ -57,6 +88,7 @@ class Room(models.Model):
             "id": self.id,
             "label": self.label,
             "about": self.about_room,
+            "hotel": self.hotel.serialize(),
             "number_on_door": self.number_on_door,
             "floor": self.floor,
             "num_beds": self.num_beds,
@@ -83,31 +115,3 @@ class Booking(models.Model):
                               related_name='hotel_booked')
     price_booked = models.DecimalField(max_digits=6, decimal_places=0,
                                        default=0)
-
-
-class Hotel(models.Model):
-    create_date = models.DateTimeField(auto_now=True)
-    label = models.CharField(max_length=64)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE,
-                                 related_name='hotel_location')
-    about_hotel = models.TextField(max_length=10000)
-    amenity_list = models.ManyToManyField(Amenity,
-                                          related_name='amenity_list')
-    room_list = models.ManyToManyField(Room, related_name='room_list')
-    image_url = models.CharField(max_length=200, blank=True)
-
-    def __str__(self):
-        return f"{self.label}"
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "create-date": self.create_date.strftime(
-                "%b %-d %Y, %-I:%M %p"),
-            "label": self.label,
-            "about": self.about_hotel,
-            "amenities": [amenity.label for amenity in
-                          self.amenity_list.all()],
-            "rooms": [room.serialize() for room in self.room_list.all()],
-            "image_url": self.image_url,
-        }

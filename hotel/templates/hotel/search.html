@@ -28,6 +28,7 @@
     <div class="album py-5 bg-light">
         <div class="container">
             <h2>Hotels in {{ form.cleaned_data.location }}</h2>
+            {% include 'hotel/messages.html' %}
             <div class="row">
                 {% for hotel in hotels %}
                     <div class="col-md-4">
@@ -57,4 +58,38 @@
     </div>
 {% endblock %}
 {% block script %}
+    <!-- Fengyuan Chen's Datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+          integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+            integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            var $startDate = $('#id_arrival');
+            var $endDate = $('#id_departure');
+
+            $startDate.datepicker({
+                format: 'yyyy-mm-dd',
+                autoHide: true,
+                startDate: new Date()
+            });
+            $endDate.datepicker({
+                format: 'yyyy-mm-dd',
+                autoHide: true,
+                startDate: $startDate.datepicker('getDate'),
+            });
+
+            $startDate.on('change', function () {
+                // Get the new arrival date.
+                let startDate = new Date($startDate.datepicker('getDate'));
+                // Set the start date for departure to arrival +1.
+                let endDate = startDate.setDate(startDate.getDate() + 1);
+                $endDate.datepicker('setStartDate', new Date(endDate));
+                // Correct for an arrival date after the departure.
+                if (startDate > Date.parse($endDate.datepicker('getDate'))) {
+                    $endDate.datepicker('setDate', new Date(endDate));
+                }
+            });
+        });
+    </script>
 {% endblock %}

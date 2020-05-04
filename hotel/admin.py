@@ -13,7 +13,7 @@ class LocationAdmin(admin.ModelAdmin):
 
 class HotelAdmin(admin.ModelAdmin):
     list_display = ("label", "create_date")
-    filter_horizontal = ("amenity_list", "room_list")
+    filter_horizontal = ("amenity_list",)
 
 
 class CategoryAdmin(admin.ModelAdmin):

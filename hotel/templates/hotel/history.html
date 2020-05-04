@@ -1,31 +1,23 @@
-{% extends "hotel/layout-old.html" %}
+{% extends "hotel/layout.html" %}
 {% load static %}
 {% block body %}
-    {% csrf_token %}
-    <div class="album py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="card mb-4 box-shadow" style="min-width: 40rem">
-                        {% for booking in history %}
-                            <div class="card bg-light ml-2 mr-2 mb-2 mt-2">
-                                <div class="card-header text-left">
-                                    <a href="/hotel/{{ hotel.id }}"><h2 class="card-text">{{ booking.hotel }}</h2></a>
-                                    Confirmation: {{ booking.confirmation }}, created on {{ booking.create_date }}</div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-left">{{ booking.room }}</h5>
-                                    <p class="card-text text-justify">{{ booking.room.about_room }}</p>
-                                    <h6 class="text-left">Guest: {{ booking.full_name }}</h6>
-                                    <h6 class="text-left">Phone: {{ booking.phone_number }}</h6>
-                                    <h6 class="text-left">Arrival: {{ booking.arrival_date }}</h6>
-                                    <h6 class="text-left">
-                                        Departure: {{ booking.departure_date }}</h6>
-                                </div>
-                            </div>
-                        {% endfor %}
+    <div class="container mt-4">
+        <h1>Booking History</h1>
+        {% include 'hotel/messages.html' %}
+        <div class="list-group mt-2">
+            {% for booking in history %}
+                <a href="{% url 'booking' booking.confirmation %}"
+                   class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Confirmation: {{ booking.confirmation }}</h5>
+                        <small>Total: INSERT TOTAL</small>
                     </div>
-                </div>
-            </div>
+                    <p class="text-left"><b>Arival:</b> {{ booking.arrival_date|date }}
+                        <b>Departure:</b> {{ booking.departure_date|date }}
+                    </p>
+                    <small class="text-left">Booked on {{ booking.create_date|date }}</small>
+                </a>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

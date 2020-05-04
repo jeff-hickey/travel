@@ -19,6 +19,8 @@ class RoomForm extends React.Component {
 
     componentDidMount() {
         console.log(this.state.hotel);
+        console.log(this.state.arrival);
+        console.log(this.state.departure);
         fetch(`/hotel-rooms/${this.state.hotel}/${this.state.arrival}/${this.state.departure}`)
             .then(response => {
                 if (response.status > 400) {
@@ -29,12 +31,11 @@ class RoomForm extends React.Component {
                 }
                 return response.json();
             })
-            .then(hotel => {
-                console.log(hotel.rooms)
+            .then(data => {
+                console.log(data)
                 this.setState(() => {
                     return {
-                        rooms: hotel.rooms,
-                        amenities: hotel.amenities,
+                        rooms: data.rooms,
                         loaded: true
                     };
                 });
@@ -61,6 +62,7 @@ class RoomForm extends React.Component {
     }
 
     handleSubmit(event) {
+        // Todo: make this work
         alert('Your favorite flavor is: ' + this.state.value);
         event.preventDefault();
     }
@@ -75,13 +77,13 @@ class RoomForm extends React.Component {
                             <div className="form-row">
                                 <div className="col-lg-4">
                                     <h6 className="card-text white-shadow-text float-left">Arrival</h6><br/>
-                                    <input id="arrival" name="arrival" type="date" value={this.state.arrival}
+                                    <input id="arrival" name="arrival" type="text" value={this.state.arrival}
                                            onChange={this.handleChange}
                                            className="form-control form-control-sm"/>
                                 </div>
                                 <div className="col-lg-4">
                                     <h6 className="card-text white-shadow-text float-left">Departure</h6>
-                                    <input id="departure" name="departure" type="date" value={this.state.departure}
+                                    <input id="departure" name="departure" type="text" value={this.state.departure}
                                            onChange={this.handleChange}
                                            className="form-control form-control-sm"/>
                                 </div>

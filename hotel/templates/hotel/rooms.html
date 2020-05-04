@@ -9,15 +9,15 @@
                         <h2 class="white-shadow-text">{{ hotel.label }} </h2>
                     </div>
                     {% if request.session.cart %}
-                    <div class="col-lg-3 text-right mt-1">
-                        <a href="{% url 'checkout' %}" id="checkout" class="btn btn-md btn-secondary mr-3">Check Out >></a>
-                    </div>
+                        <div class="col-lg-3 text-right mt-1">
+                            <a href="{% url 'checkout' %}" id="checkout" class="btn btn-md btn-secondary mr-3">Check Out
+                                >></a>
+                        </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
-
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">
@@ -40,6 +40,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="container">
+                        <h1>Rooms at this Hotel</h1>
                         <div class="row">
                             <!-- Availability form and rooms list -->
                             <div id="form" data-arrival="{{ request.session.arrival }}"

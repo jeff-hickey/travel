@@ -8,38 +8,43 @@
             </p>
 
         </div>
-
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-6'>
+                </div>
+            </div>
+        </div>
     </section>
-    <form action="{% url 'search' %}" method="get" id="search_form">
-    {% csrf_token %}
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <label for="location">Location</label>
-                        {{ form.location }}
-                    </div>
-                    <div class="col">
-                        <label for="arrival">Arrival</label>
-                        {{ form.arrival }}
-                    </div>
-                    <div class="col">
-                        <label for="departure">Departure</label>
-                        {{ form.departure }}
-                    </div>
-                    <div class="col">
-                        <input type="submit" id="search_hotels" class="btn btn-lg btn-secondary mt-4"
-                               value="Show Hotels.">
+    <form action="{% url 'search' %}" method="post" id="search_form">
+        {% csrf_token %}
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <label for="location">Location</label>
+                            {{ form.location }}
+                        </div>
+                        <div class="col">
+                            <label for="arrival">Arrival</label>
+                            {{ form.arrival }}
+                        </div>
+                        <div class="col">
+                            <label for="departure">Departure</label>
+                            {{ form.departure }}
+                        </div>
+                        <div class="col">
+                            <input type="submit" id="search_hotels" class="btn btn-lg btn-secondary mt-4"
+                                   value="Show Hotels.">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </form>
     <div class="album py-5 bg-light">
         <div class="container">
-        <h1>All Hotels</h1>
+            <h1>All Hotels</h1>
             <div class="row">
                 {% for hotel in hotels %}
 
@@ -55,7 +60,8 @@
                                 <p class="card-text">{{ hotel.about_hotel }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="/hotel/{{ hotel.id }}" class="btn btn-sm btn-outline-secondary">View Rooms
+                                        <a href="/hotel/{{ hotel.id }}" class="btn btn-sm btn-outline-secondary">View
+                                            Rooms
                                         </a>
                                     </div>
                                     <small class="text-muted">{{ hotel.location }}</small>
@@ -70,4 +76,38 @@
     </div>
 {% endblock %}
 {% block script %}
+    <!-- Fengyuan Chen's Datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+          integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+            integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            var $startDate = $('#id_arrival');
+            var $endDate = $('#id_departure');
+
+            $startDate.datepicker({
+                format: 'yyyy-mm-dd',
+                autoHide: true,
+                startDate: new Date()
+            });
+            $endDate.datepicker({
+                format: 'yyyy-mm-dd',
+                autoHide: true,
+                startDate: $startDate.datepicker('getDate'),
+            });
+
+            $startDate.on('change', function () {
+                // Get the new arrival date.
+                let startDate = new Date($startDate.datepicker('getDate'));
+                // Set the start date for departure to arrival +1.
+                let endDate = startDate.setDate(startDate.getDate() + 1);
+                $endDate.datepicker('setStartDate', new Date(endDate));
+                // Correct for an arrival date after the departure.
+                if (startDate > Date.parse($endDate.datepicker('getDate'))) {
+                    $endDate.datepicker('setDate', new Date(endDate));
+                }
+            });
+        });
+    </script>
 {% endblock %}
