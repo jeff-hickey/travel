@@ -1,13 +1,24 @@
 Overview
-1. Built a Hotel Booking website that includes: Hotel Search, Room Search,
-Room Booking a Shopping cart and Django Admin interface.
+1. Built a Hotel Booking app for web & mobile that includes: Hotel Search, Room Search,
+Booking, a Shopping cart, User Registration and Django Admin interface.
 2. The things I learned include: Django Testing, Sessions, React Components,
-GitHub actions, ooks
+GitHub workflows/aactions, flatpickr integration.
+3. Complete GOOD, BETTER and BEST requirements from proposal.
 
-1. Wrote tests for room availability, these run on push to github.
-2. Was able to comple booking for multiple hotel & rooms combinations.
-3. Used React for the room availability display.
-5. Used Django sessions to track cart and search data.
 
 Code Highlights
-- views.py - Check out room_availability and some of the session management code. This
+
+- views.py - Django Session management (shopping cart) and room_availability
+would be the most interesting code. It was new working with dates and date comparison.
+- tests.py - Includes a test for Room Availability, perhaps the most complex
+code in the app.
+- models.py - Representing Hotel and Room data can take many forms. This area evolved over
+time and could continue to do so, as the site needs expand.
+-forms.py - Used Django UnBound forms for Search and Checkout.
+-admin.py - Admin site configurations.
+
+- index.html and search.html have flatpickr integration.
+- rooms.html and room.js - React Components to manage Room Availability. The biggest
+challenge was state management, fetching data and flatpickr integration.
+- django.yml - workflow to run tests on push to github.
+
