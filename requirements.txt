@@ -31,5 +31,5 @@ submit50==3.0.2
 termcolor==1.1.0
 urllib3==1.25.8
 Werkzeug==0.16.0
-gunicorn
+gunicorn==19.7.1
 django-heroku
