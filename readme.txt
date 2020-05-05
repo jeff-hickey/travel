@@ -22,3 +22,5 @@ time and could continue to do so, as the site needs expand.
 challenge was state management, fetching data and flatpickr integration.
 - django.yml - workflow to run tests on push to github.
 
+URLs
+https://travel-hotel.herokuapp.com/ | https://git.heroku.com/travel-hotel.git
