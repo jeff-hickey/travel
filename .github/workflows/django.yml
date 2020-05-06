@@ -35,4 +35,4 @@ jobs:
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
-        python3 manage.py test -d --debug-mode
+        python3 manage.py test -d -v 3 --debug-mode
