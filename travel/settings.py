@@ -123,5 +123,5 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 if '/app' in os.environ['HOME']:
-    import django_herok
+    import django_heroku
     django_heroku.settings(locals())
