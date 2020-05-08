@@ -1,1 +1,836 @@
-[{"model": "hotel.location", "pk": 1, "fields": {"label": "Scottsdale"}}, {"model": "hotel.location", "pk": 2, "fields": {"label": "Miami"}}, {"model": "hotel.location", "pk": 3, "fields": {"label": "London"}}, {"model": "hotel.location", "pk": 5, "fields": {"label": "Deserted Island"}}, {"model": "hotel.category", "pk": 1, "fields": {"label": "Pool", "icon_name": "pool"}}, {"model": "hotel.category", "pk": 2, "fields": {"label": "Wifi", "icon_name": "wifi"}}, {"model": "hotel.category", "pk": 3, "fields": {"label": "Restaurant", "icon_name": "food"}}, {"model": "hotel.amenity", "pk": 1, "fields": {"create_date": "2020-04-26T04:45:13.043Z", "label": "Adult-only Pool", "category": 1}}, {"model": "hotel.amenity", "pk": 2, "fields": {"create_date": "2020-04-26T21:11:15.840Z", "label": "Free & Paid WiFi", "category": 2}}, {"model": "hotel.amenity", "pk": 3, "fields": {"create_date": "2020-04-26T04:46:00.657Z", "label": "Six Unique Dining Options", "category": 3}}, {"model": "hotel.hotel", "pk": 1, "fields": {"create_date": "2020-05-01T17:01:50.883Z", "label": "Montelucia Resort & Spa", "location": 1, "about_hotel": "ESCAPE TO SPANISH-INSPIRED LUXURY\r\nWhether you're visiting for business or pleasure, Omni Scottsdale Resort & Spa at Montelucia is a premier destination for luxury and romance, relaxation and recreation. Take a climb on Camelback Mountain, relax at Joya Spa, kick back at the pool, or tempt your tastebuds with culinary delights inspired by Spain and Mexico.", "image_url": "https://www.omnihotels.com/-/media/images/hotels/phxrst/digex/hero/phxrst-2880x1870.jpg?la=en&h=1322&w=1980&mw=1980&hash=1FDB172C8FF2201460F6444D3099F2CA9293DD7F", "amenity_list": [1, 2, 3]}}, {"model": "hotel.hotel", "pk": 2, "fields": {"create_date": "2020-05-01T17:05:02.666Z", "label": "Fairmont Scottsdale Princess", "location": 1, "about_hotel": "The Fairmont Scottsdale Princess offers 750 richly appointed guest rooms, including two Presidential Suites, 66 Fairmont Gold Rooms and 122 Casitas. All accommodations throughout the hotel have well-defined living and work areas, terraces, refreshment centers and oversized luxury bathrooms. Enjoy these Five Diamond accommodations in Scottsdale with a soothing showcase of the subtle undertones, earthy accents and patterns of the Southwest.", "image_url": "https://www.fairmont.com/assets/0/104/3045/3050/4254/4255/a77a2576-7b25-4891-9f4c-9c19aeeb40ce.jpg", "amenity_list": [1, 3]}}, {"model": "hotel.hotel", "pk": 3, "fields": {"create_date": "2020-05-04T09:05:58.859Z", "label": "Gale South Beach, Curio Collection by Hilton", "location": 2, "about_hotel": "Originally erected in 1941, the Gale South Beach & Regent Hotel were two trendsetting properties located on an up-and-coming escape haven of Miami known as South Beach. Architect L. Murray Dixon had the unique vision to build two venues of Tropical Art Deco fashion; a style the pioneer is today credited with developing.", "image_url": "https://res.cloudinary.com/traveltripperweb/image/upload/c_limit,f_auto,h_2500,q_auto,w_2500/v1584641413/wldjq6kz6kbenz3ujka7.jpg", "amenity_list": [1, 2]}}, {"model": "hotel.hotel", "pk": 4, "fields": {"create_date": "2020-05-04T09:13:46.737Z", "label": "Citizen M, London Bankside", "location": 3, "about_hotel": "Borough Market on one side, Tate Modern on the other. Lobbies belong in old-timey hotels and politics \u2013 and we are neither. Welcome to your London Bankside living room, where all couches are yours to lounge on, the books are yours to read, and the Wi-Fi is superfast and free to surf. And in the middle \u2013 your own cocktail bar. Cheers!", "image_url": "https://assets.citizenm.com/images/Hero%20Image-LondonBankside_INT_04_high-2_6c06b94444602805e495e5e-1.jpg", "amenity_list": [2]}}, {"model": "hotel.room", "pk": 1, "fields": {"hotel": 1, "create_date": "2020-05-04T01:10:52.657Z", "label": "Camelback View Room", "about_room": "Unwind in this 504 sq. ft. Camelback View guestroom and enjoy the mystical views of Scottsdale's most famous landmark from your 100 sq. ft. private patio or balcony.", "number_on_door": 201, "floor": 2, "num_beds": 2, "max_guests": 4, "price": "150", "image_url": ""}}, {"model": "hotel.room", "pk": 2, "fields": {"hotel": 1, "create_date": "2020-05-04T01:10:38.483Z", "label": "Oasis Poolside Room", "about_room": "Enjoy the convenient poolside location of the glamorous Omni Scottsdale's Oasis (Adult Only) Pool from your well appointed 504 sq. ft. guestroom and 110 sq. ft. private patio or balcony accented by a luxury chaise lounge.", "number_on_door": 202, "floor": 2, "num_beds": 1, "max_guests": 2, "price": "175", "image_url": "https://www.omnihotels.com/hotels/-/media/images/hotels/PHXRST/ReservationRooms/PHXRST_SKPK.jpg"}}, {"model": "hotel.room", "pk": 3, "fields": {"hotel": 2, "create_date": "2020-05-04T01:25:57.919Z", "label": "Fairmont Gold Junior View Suite", "about_room": "Fairmont Gold View Junior Suites offer an upgraded view of the golf course. As a guest in our Fairmont Gold rooms, you have full access to our lounge, private concierge and Well & Being Spa. Your suite is outfitted with every modern convenience, including Alexa voice assistant with phone dialing capabilities to let you \"Ask the Princess\" for anything you need. After an evening sipping tequila with the Tequila Goddess at La Hacienda or roasting marshmallows by the fire pit, make your way back to your suite, where turn-down service sets the mood for a relaxing rest. Take a long shower in the oversized bathroom, then climb into a bed with upgraded linens for a peaceful night's sleep.", "number_on_door": 201, "floor": 2, "num_beds": 2, "max_guests": 4, "price": "299", "image_url": "https://www.omnihotels.com/hotels/-/media/images/hotels/PHXRST/ReservationRooms/PHXRST_VK_2.jpg"}}, {"model": "hotel.room", "pk": 4, "fields": {"hotel": 2, "create_date": "2020-05-04T01:25:51.621Z", "label": "Fairmont Gold Master Suite", "about_room": "The Fairmont Gold Suites offer a luxurious hotel-within-a-hotel for a fully customized stay next to the TPC Stadium Golf Course. Each remodeled suite includes a separate living area complete with a full bathroom and the option of connecting one or two bedrooms. The living area overlooks the beautiful landscaped resort grounds. The suite includes a double sofa sleeper, a built-in bar, and a dining or conference table for six. In the separate bedroom, enjoy upgraded luxury linens. There is also a sleeper sofa in the bedroom and an oversized shower. Thanks to advanced Alexa technology, you can simply \"Ask the Princess\" for anything you need.", "number_on_door": 202, "floor": 2, "num_beds": 1, "max_guests": 2, "price": "350", "image_url": "https://www.fairmont.com/assets/0/104/3045/3050/4254/4260/4dea6c7b-b9f5-43a6-9f52-b42bae7c9cd6.jpg"}}, {"model": "hotel.room", "pk": 5, "fields": {"hotel": 3, "create_date": "2020-05-04T09:07:42.221Z", "label": "Double Signature", "about_room": "Our 250 sq. ft. full bed guest rooms are beautifully decorated and includes textured wood accents, ocean-hued carpeting, vintage-inspired furniture, clean lines and sleek d\u00e9cor. Refresh in the bathroom with white marble rain shower and illuminated vanity mirrors, premium bath products and cozy bathrobe. Enjoy complimentary WiFi, a 55-inch HDTV, clock radio with Bluetooth, as well as ample outlets for charging any device.", "number_on_door": 301, "floor": 3, "num_beds": 2, "max_guests": 2, "price": "190", "image_url": "https://res.cloudinary.com/traveltripperweb/image/upload/v1550708144/kn8ro4bxwnsbqhs0pzdy.webp"}}, {"model": "hotel.room", "pk": 6, "fields": {"hotel": 3, "create_date": "2020-05-04T22:52:13.126Z", "label": "King Signature", "about_room": "Our 325 sq. ft. King Signature rooms are beautifully decorated and includes textured wood accents, ocean-hued carpeting, vintage-inspired furniture, clean lines and sleek d\u00e9cor. Refresh in the bathroom with white marble rain shower and illuminated vanity mirrors, premium bath products and cozy bathrobe. Enjoy complimentary WiFi, a 55-inch HDTV, clock radio with Bluetooth, as well as ample outlets for charging any device.", "number_on_door": 502, "floor": 5, "num_beds": 1, "max_guests": 1, "price": "250", "image_url": "https://res.cloudinary.com/traveltripperweb/image/upload/v1553753775/bmvtuo3dt4uuez0qsocl.jpg"}}, {"model": "hotel.room", "pk": 7, "fields": {"hotel": 4, "create_date": "2020-05-04T09:17:04.665Z", "label": "Extra Love-able Beds", "about_room": "Home is where the kitchen is \u2013 and ours is open 24/7. Enjoy hot and cold food always within reach just like home, snacks galore and the best coffee this side of the Thames. It's just like home \u2013 if your home kitchen had a 24/7 barista and turned into a cocktail bar every evening.", "number_on_door": 802, "floor": 8, "num_beds": 1, "max_guests": 1, "price": "149", "image_url": "https://assets.citizenm.com/images/Hero%20Image-LondonBankside_INT_29_high_d9063e45b4602765da83526.jpg"}}, {"model": "sessions.session", "pk": "7a4yie5g3c5r5rf13gp0wt5bzjr9g4q5", "fields": {"session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==", "expire_date": "2020-05-10T22:50:13.076Z"}}, {"model": "sessions.session", "pk": "8pyyfhcicne0ygi3myciyi63sku92at9", "fields": {"session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==", "expire_date": "2020-05-10T23:04:23.590Z"}}, {"model": "sessions.session", "pk": "9gu2us1sw42oxgpvucvtcmr09msznvb7", "fields": {"session_data": "NDNiZTE2Mzg1OGFiMDYyMTZjMTk1YjE0ODhkYTIzMDMzZjQwNmY4ZTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI2YzMwZmRhOGI1NmJkMTRjNzVjNmQ5ZWVmZTRiOGE5NjE2YWM5NWZjIiwiYXJyaXZhbCI6IjIwMjAtMDUtMTgiLCJkZXBhcnR1cmUiOiIyMDIwLTA1LTE5IiwibG9jYXRpb24iOiIxIiwiY2FydCI6eyIzIjp7ImlkIjozLCJhcnJpdmFsIjoiMjAyMC0wNS0xOSIsImRlcGFydHVyZSI6IjIwMjAtMDUtMjEiLCJwcmljZSI6IjI5OSJ9LCIxIjp7ImlkIjoxLCJhcnJpdmFsIjoiMjAyMC0wNS0xOSIsImRlcGFydHVyZSI6IjIwMjAtMDUtMjEiLCJwcmljZSI6IjE1MCJ9LCI3Ijp7ImlkIjo3LCJhcnJpdmFsIjoiMjAyMC0wNS0wNiIsImRlcGFydHVyZSI6IjIwMjAtMDUtMDciLCJwcmljZSI6IjE0OSJ9LCI0Ijp7ImlkIjo0LCJhcnJpdmFsIjoiMjAyMC0wNS0wNiIsImRlcGFydHVyZSI6IjIwMjAtMDUtMDciLCJwcmljZSI6IjM1MCJ9fSwic2VhcmNoIjp7ImxvY2F0aW9uIjoxLCJhcnJpdmFsIjoiMjAyMC0wNS0wNiIsImRlcGFydHVyZSI6IjIwMjAtMDUtMDcifX0=", "expire_date": "2020-05-19T00:22:05.106Z"}}, {"model": "sessions.session", "pk": "hxbggm8nxfxwgqh3erbortfdsxukndn0", "fields": {"session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==", "expire_date": "2020-05-16T22:24:46.679Z"}}, {"model": "sessions.session", "pk": "l7wbaiejihhiqiqtm50tew2kuxmi6r68", "fields": {"session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==", "expire_date": "2020-05-10T23:05:13.088Z"}}, {"model": "sessions.session", "pk": "nt9zyegjfnu870vcnjhqrfh7baxl2nfu", "fields": {"session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==", "expire_date": "2020-05-10T22:41:03.475Z"}}, {"model": "sessions.session", "pk": "toox3jy1vu8jv3o34kimuz4mc05s33r0", "fields": {"session_data": "NDkwM2VkMGZkNWRiZTYwZDIzM2MwZGZmZDNlZDkyMGEzNzkxODJmNzp7ImFycml2YWwiOiIyMDIwLTA1LTEzIiwiZGVwYXJ0dXJlIjoiMjAyMC0wNS0yMCIsImxvY2F0aW9uIjoiMSIsIl9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkZTQ1Zjg4ODU3MTEzYjAwNmY2MzQzZDFlODc1ZjI3OTEzNDAzYTAwIiwic2VhcmNoIjp7ImxvY2F0aW9uIjoxLCJhcnJpdmFsIjoiMjAyMC0wNS0wNSIsImRlcGFydHVyZSI6IjIwMjAtMDUtMDYifX0=", "expire_date": "2020-05-18T23:24:10.678Z"}}, {"model": "hotel.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$180000$ejU3Txfd8paM$pjKlDJvT/WvdD7gSHD8IvOgyMSb2nPbEi0Emkn3ywEs=", "last_login": "2020-05-04T23:39:35.243Z", "is_superuser": true, "username": "super", "first_name": "Super", "last_name": "Man", "email": "super@home.com", "is_staff": true, "is_active": true, "date_joined": "2020-04-26T04:38:04Z", "groups": [], "user_permissions": []}}, {"model": "hotel.user", "pk": 2, "fields": {"password": "pbkdf2_sha256$180000$rddqcUAdS65F$jDUAgXF1SfG1W43yIkGFcY5tAz3zWsEtaOiDB3EF5d0=", "last_login": "2020-05-04T17:40:52.396Z", "is_superuser": false, "username": "imsoo", "first_name": "Imsoo", "last_name": "Hickey", "email": "imsoo@home.com", "is_staff": false, "is_active": true, "date_joined": "2020-04-26T22:41:03.137Z", "groups": [], "user_permissions": []}}, {"model": "hotel.user", "pk": 3, "fields": {"password": "pbkdf2_sha256$180000$V0dCq5CN5gYe$aO5PxzEE+uhwUMm1Ek9kgmpKWutMYAFv/bF3AUw14Rg=", "last_login": "2020-05-03T23:34:16.049Z", "is_superuser": false, "username": "safari", "first_name": "Apple", "last_name": "Safari", "email": "safari@home.com", "is_staff": false, "is_active": true, "date_joined": "2020-05-03T23:34:15.856Z", "groups": [], "user_permissions": []}}, {"model": "hotel.user", "pk": 4, "fields": {"password": "pbkdf2_sha256$180000$vLJywlbdLSpZ$oXlD2LBZTusT3z8yLdFW3B8qHS3lgEQm20rJGaqlek0=", "last_login": "2020-05-05T20:51:21.782Z", "is_superuser": false, "username": "billy", "first_name": "Billy", "last_name": "Bob", "email": "billy@home.com", "is_staff": false, "is_active": true, "date_joined": "2020-05-04T23:00:51.819Z", "groups": [], "user_permissions": []}}, {"model": "admin.logentry", "pk": 1, "fields": {"action_time": "2020-04-26T04:39:55.741Z", "user": 1, "content_type": 4, "object_id": "1", "object_repr": "Location object (1)", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 2, "fields": {"action_time": "2020-04-26T04:40:05.348Z", "user": 1, "content_type": 4, "object_id": "2", "object_repr": "Location object (2)", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 3, "fields": {"action_time": "2020-04-26T04:41:49.466Z", "user": 1, "content_type": 4, "object_id": "3", "object_repr": "London", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 4, "fields": {"action_time": "2020-04-26T04:41:55.209Z", "user": 1, "content_type": 4, "object_id": "4", "object_repr": "Oslo", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 5, "fields": {"action_time": "2020-04-26T04:44:24.210Z", "user": 1, "content_type": 3, "object_id": "1", "object_repr": "Pool", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 6, "fields": {"action_time": "2020-04-26T04:44:33.708Z", "user": 1, "content_type": 3, "object_id": "2", "object_repr": "Wifi", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 7, "fields": {"action_time": "2020-04-26T04:44:48.600Z", "user": 1, "content_type": 3, "object_id": "3", "object_repr": "Restaurant", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 8, "fields": {"action_time": "2020-04-26T04:45:13.044Z", "user": 1, "content_type": 2, "object_id": "1", "object_repr": "Adult-only Pool", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 9, "fields": {"action_time": "2020-04-26T04:45:45.454Z", "user": 1, "content_type": 2, "object_id": "2", "object_repr": "ree & Paid WiFi", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 10, "fields": {"action_time": "2020-04-26T04:46:00.659Z", "user": 1, "content_type": 2, "object_id": "3", "object_repr": "Six Unique Dining Options", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 11, "fields": {"action_time": "2020-04-26T04:47:57.954Z", "user": 1, "content_type": 5, "object_id": "1", "object_repr": "CAMELBACK VIEW ROOM 2 QUEEN BEDS, Room # 201", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 12, "fields": {"action_time": "2020-04-26T04:48:48.857Z", "user": 1, "content_type": 5, "object_id": "2", "object_repr": "OASIS POOLSIDE ROOM 1 KING BED, Room # 202", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 13, "fields": {"action_time": "2020-04-26T04:48:52.914Z", "user": 1, "content_type": 6, "object_id": "1", "object_repr": "Montelucia Resort & Spa", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 14, "fields": {"action_time": "2020-04-26T04:58:34.505Z", "user": 1, "content_type": 5, "object_id": "3", "object_repr": "Fairmont Gold Junior View Suite, Room # 201", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 15, "fields": {"action_time": "2020-04-26T04:59:32.423Z", "user": 1, "content_type": 5, "object_id": "4", "object_repr": "Fairmont Gold Master Suite, Room # 202", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 16, "fields": {"action_time": "2020-04-26T04:59:34.430Z", "user": 1, "content_type": 6, "object_id": "2", "object_repr": "Fairmont Scottsdale Princess", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 17, "fields": {"action_time": "2020-04-26T21:11:15.842Z", "user": 1, "content_type": 2, "object_id": "2", "object_repr": "Free & Paid WiFi", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Label\"]}}]"}}, {"model": "admin.logentry", "pk": 18, "fields": {"action_time": "2020-04-29T06:20:11.441Z", "user": 1, "content_type": 4, "object_id": "5", "object_repr": "Deserted Island", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 19, "fields": {"action_time": "2020-05-01T17:01:50.890Z", "user": 1, "content_type": 6, "object_id": "1", "object_repr": "Montelucia Resort & Spa", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Room list\", \"Image url\"]}}]"}}, {"model": "admin.logentry", "pk": 20, "fields": {"action_time": "2020-05-01T17:03:10.476Z", "user": 1, "content_type": 5, "object_id": "3", "object_repr": "Fairmont Gold Junior View Suite, Room # 201", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"}}, {"model": "admin.logentry", "pk": 21, "fields": {"action_time": "2020-05-01T17:04:07.513Z", "user": 1, "content_type": 5, "object_id": "2", "object_repr": "OASIS POOLSIDE ROOM 1 KING BED, Room # 202", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"}}, {"model": "admin.logentry", "pk": 22, "fields": {"action_time": "2020-05-01T17:05:02.671Z", "user": 1, "content_type": 6, "object_id": "2", "object_repr": "Fairmont Scottsdale Princess", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"}}, {"model": "admin.logentry", "pk": 23, "fields": {"action_time": "2020-05-01T17:06:09.809Z", "user": 1, "content_type": 5, "object_id": "4", "object_repr": "Fairmont Gold Master Suite, Room # 202", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"}}, {"model": "admin.logentry", "pk": 24, "fields": {"action_time": "2020-05-04T01:10:38.486Z", "user": 1, "content_type": 5, "object_id": "2", "object_repr": "Oasis Poolside Room, Room # 202", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Label\"]}}]"}}, {"model": "admin.logentry", "pk": 25, "fields": {"action_time": "2020-05-04T01:10:52.659Z", "user": 1, "content_type": 5, "object_id": "1", "object_repr": "Camelback View Room, Room # 201", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Label\"]}}]"}}, {"model": "admin.logentry", "pk": 26, "fields": {"action_time": "2020-05-04T01:25:51.625Z", "user": 1, "content_type": 5, "object_id": "4", "object_repr": "Fairmont Gold Master Suite, Room # 202", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Hotel\"]}}]"}}, {"model": "admin.logentry", "pk": 27, "fields": {"action_time": "2020-05-04T01:25:57.921Z", "user": 1, "content_type": 5, "object_id": "3", "object_repr": "Fairmont Gold Junior View Suite, Room # 201", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Hotel\"]}}]"}}, {"model": "admin.logentry", "pk": 28, "fields": {"action_time": "2020-05-04T01:39:28.484Z", "user": 1, "content_type": 1, "object_id": "1", "object_repr": "super", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\"]}}]"}}, {"model": "admin.logentry", "pk": 29, "fields": {"action_time": "2020-05-04T09:05:58.867Z", "user": 1, "content_type": 6, "object_id": "3", "object_repr": "Gale South Beach, Curio Collection by Hilton", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 30, "fields": {"action_time": "2020-05-04T09:07:42.223Z", "user": 1, "content_type": 5, "object_id": "5", "object_repr": "Double Signature, Room # 301", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 31, "fields": {"action_time": "2020-05-04T09:09:13.635Z", "user": 1, "content_type": 5, "object_id": "6", "object_repr": "King Signature, Room # 502", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 32, "fields": {"action_time": "2020-05-04T09:13:46.757Z", "user": 1, "content_type": 6, "object_id": "4", "object_repr": "Citizen M, London Bankside", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 33, "fields": {"action_time": "2020-05-04T09:17:04.667Z", "user": 1, "content_type": 5, "object_id": "7", "object_repr": "Extra Love-able Beds, Room # 802", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 34, "fields": {"action_time": "2020-05-04T22:52:13.128Z", "user": 1, "content_type": 5, "object_id": "6", "object_repr": "King Signature, Room # 502", "action_flag": 2, "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"}}, {"model": "admin.logentry", "pk": 35, "fields": {"action_time": "2020-05-04T23:39:47.843Z", "user": 1, "content_type": 4, "object_id": "4", "object_repr": "Oslo", "action_flag": 3, "change_message": ""}}]
+[
+  {
+    "model": "hotel.location",
+    "pk": 1,
+    "fields": {
+      "label": "Scottsdale"
+    }
+  },
+  {
+    "model": "hotel.location",
+    "pk": 2,
+    "fields": {
+      "label": "Miami"
+    }
+  },
+  {
+    "model": "hotel.location",
+    "pk": 3,
+    "fields": {
+      "label": "London"
+    }
+  },
+  {
+    "model": "hotel.location",
+    "pk": 5,
+    "fields": {
+      "label": "Deserted Island"
+    }
+  },
+  {
+    "model": "hotel.category",
+    "pk": 1,
+    "fields": {
+      "label": "Pool",
+      "icon_name": "pool"
+    }
+  },
+  {
+    "model": "hotel.category",
+    "pk": 2,
+    "fields": {
+      "label": "Wifi",
+      "icon_name": "wifi"
+    }
+  },
+  {
+    "model": "hotel.category",
+    "pk": 3,
+    "fields": {
+      "label": "Restaurant",
+      "icon_name": "food"
+    }
+  },
+  {
+    "model": "hotel.amenity",
+    "pk": 1,
+    "fields": {
+      "create_date": "2020-04-26T04:45:13.043Z",
+      "label": "Adult-only Pool",
+      "category": 1
+    }
+  },
+  {
+    "model": "hotel.amenity",
+    "pk": 2,
+    "fields": {
+      "create_date": "2020-04-26T21:11:15.840Z",
+      "label": "Free & Paid WiFi",
+      "category": 2
+    }
+  },
+  {
+    "model": "hotel.amenity",
+    "pk": 3,
+    "fields": {
+      "create_date": "2020-04-26T04:46:00.657Z",
+      "label": "Six Unique Dining Options",
+      "category": 3
+    }
+  },
+  {
+    "model": "hotel.hotel",
+    "pk": 1,
+    "fields": {
+      "create_date": "2020-05-01T17:01:50.883Z",
+      "label": "Montelucia Resort & Spa",
+      "location": 1,
+      "about_hotel": "ESCAPE TO SPANISH-INSPIRED LUXURY\r\nWhether you're visiting for business or pleasure, Omni Scottsdale Resort & Spa at Montelucia is a premier destination for luxury and romance, relaxation and recreation. Take a climb on Camelback Mountain, relax at Joya Spa, kick back at the pool, or tempt your tastebuds with culinary delights inspired by Spain and Mexico.",
+      "image_url": "https://www.omnihotels.com/-/media/images/hotels/phxrst/digex/hero/phxrst-2880x1870.jpg?la=en&h=1322&w=1980&mw=1980&hash=1FDB172C8FF2201460F6444D3099F2CA9293DD7F",
+      "amenity_list": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "hotel.hotel",
+    "pk": 2,
+    "fields": {
+      "create_date": "2020-05-01T17:05:02.666Z",
+      "label": "Fairmont Scottsdale Princess",
+      "location": 1,
+      "about_hotel": "The Fairmont Scottsdale Princess offers 750 richly appointed guest rooms, including two Presidential Suites, 66 Fairmont Gold Rooms and 122 Casitas. All accommodations throughout the hotel have well-defined living and work areas, terraces, refreshment centers and oversized luxury bathrooms. Enjoy these Five Diamond accommodations in Scottsdale with a soothing showcase of the subtle undertones, earthy accents and patterns of the Southwest.",
+      "image_url": "https://www.fairmont.com/assets/0/104/3045/3050/4254/4255/a77a2576-7b25-4891-9f4c-9c19aeeb40ce.jpg",
+      "amenity_list": [
+        1,
+        3
+      ]
+    }
+  },
+  {
+    "model": "hotel.hotel",
+    "pk": 3,
+    "fields": {
+      "create_date": "2020-05-04T09:05:58.859Z",
+      "label": "Gale South Beach, Curio Collection by Hilton",
+      "location": 2,
+      "about_hotel": "Originally erected in 1941, the Gale South Beach & Regent Hotel were two trendsetting properties located on an up-and-coming escape haven of Miami known as South Beach. Architect L. Murray Dixon had the unique vision to build two venues of Tropical Art Deco fashion; a style the pioneer is today credited with developing.",
+      "image_url": "https://res.cloudinary.com/traveltripperweb/image/upload/c_limit,f_auto,h_2500,q_auto,w_2500/v1584641413/wldjq6kz6kbenz3ujka7.jpg",
+      "amenity_list": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "hotel.hotel",
+    "pk": 4,
+    "fields": {
+      "create_date": "2020-05-04T09:13:46.737Z",
+      "label": "Citizen M, London Bankside",
+      "location": 3,
+      "about_hotel": "Borough Market on one side, Tate Modern on the other. Lobbies belong in old-timey hotels and politics \u2013 and we are neither. Welcome to your London Bankside living room, where all couches are yours to lounge on, the books are yours to read, and the Wi-Fi is superfast and free to surf. And in the middle \u2013 your own cocktail bar. Cheers!",
+      "image_url": "https://assets.citizenm.com/images/Hero%20Image-LondonBankside_INT_04_high-2_6c06b94444602805e495e5e-1.jpg",
+      "amenity_list": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 1,
+    "fields": {
+      "hotel": 1,
+      "create_date": "2020-05-04T01:10:52.657Z",
+      "label": "Camelback View Room",
+      "about_room": "Unwind in this 504 sq. ft. Camelback View guestroom and enjoy the mystical views of Scottsdale's most famous landmark from your 100 sq. ft. private patio or balcony.",
+      "number_on_door": 201,
+      "floor": 2,
+      "num_beds": 2,
+      "max_guests": 4,
+      "price": "150",
+      "image_url": ""
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 2,
+    "fields": {
+      "hotel": 1,
+      "create_date": "2020-05-04T01:10:38.483Z",
+      "label": "Oasis Poolside Room",
+      "about_room": "Enjoy the convenient poolside location of the glamorous Omni Scottsdale's Oasis (Adult Only) Pool from your well appointed 504 sq. ft. guestroom and 110 sq. ft. private patio or balcony accented by a luxury chaise lounge.",
+      "number_on_door": 202,
+      "floor": 2,
+      "num_beds": 1,
+      "max_guests": 2,
+      "price": "175",
+      "image_url": "https://www.omnihotels.com/hotels/-/media/images/hotels/PHXRST/ReservationRooms/PHXRST_SKPK.jpg"
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 3,
+    "fields": {
+      "hotel": 2,
+      "create_date": "2020-05-04T01:25:57.919Z",
+      "label": "Fairmont Gold Junior View Suite",
+      "about_room": "Fairmont Gold View Junior Suites offer an upgraded view of the golf course. As a guest in our Fairmont Gold rooms, you have full access to our lounge, private concierge and Well & Being Spa. Your suite is outfitted with every modern convenience, including Alexa voice assistant with phone dialing capabilities to let you \"Ask the Princess\" for anything you need. After an evening sipping tequila with the Tequila Goddess at La Hacienda or roasting marshmallows by the fire pit, make your way back to your suite, where turn-down service sets the mood for a relaxing rest. Take a long shower in the oversized bathroom, then climb into a bed with upgraded linens for a peaceful night's sleep.",
+      "number_on_door": 201,
+      "floor": 2,
+      "num_beds": 2,
+      "max_guests": 4,
+      "price": "299",
+      "image_url": "https://www.omnihotels.com/hotels/-/media/images/hotels/PHXRST/ReservationRooms/PHXRST_VK_2.jpg"
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 4,
+    "fields": {
+      "hotel": 2,
+      "create_date": "2020-05-04T01:25:51.621Z",
+      "label": "Fairmont Gold Master Suite",
+      "about_room": "The Fairmont Gold Suites offer a luxurious hotel-within-a-hotel for a fully customized stay next to the TPC Stadium Golf Course. Each remodeled suite includes a separate living area complete with a full bathroom and the option of connecting one or two bedrooms. The living area overlooks the beautiful landscaped resort grounds. The suite includes a double sofa sleeper, a built-in bar, and a dining or conference table for six. In the separate bedroom, enjoy upgraded luxury linens. There is also a sleeper sofa in the bedroom and an oversized shower. Thanks to advanced Alexa technology, you can simply \"Ask the Princess\" for anything you need.",
+      "number_on_door": 202,
+      "floor": 2,
+      "num_beds": 1,
+      "max_guests": 2,
+      "price": "350",
+      "image_url": "https://www.fairmont.com/assets/0/104/3045/3050/4254/4260/4dea6c7b-b9f5-43a6-9f52-b42bae7c9cd6.jpg"
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 5,
+    "fields": {
+      "hotel": 3,
+      "create_date": "2020-05-04T09:07:42.221Z",
+      "label": "Double Signature",
+      "about_room": "Our 250 sq. ft. full bed guest rooms are beautifully decorated and includes textured wood accents, ocean-hued carpeting, vintage-inspired furniture, clean lines and sleek d\u00e9cor. Refresh in the bathroom with white marble rain shower and illuminated vanity mirrors, premium bath products and cozy bathrobe. Enjoy complimentary WiFi, a 55-inch HDTV, clock radio with Bluetooth, as well as ample outlets for charging any device.",
+      "number_on_door": 301,
+      "floor": 3,
+      "num_beds": 2,
+      "max_guests": 2,
+      "price": "190",
+      "image_url": "https://res.cloudinary.com/traveltripperweb/image/upload/v1550708144/kn8ro4bxwnsbqhs0pzdy.webp"
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 6,
+    "fields": {
+      "hotel": 3,
+      "create_date": "2020-05-04T22:52:13.126Z",
+      "label": "King Signature",
+      "about_room": "Our 325 sq. ft. King Signature rooms are beautifully decorated and includes textured wood accents, ocean-hued carpeting, vintage-inspired furniture, clean lines and sleek d\u00e9cor. Refresh in the bathroom with white marble rain shower and illuminated vanity mirrors, premium bath products and cozy bathrobe. Enjoy complimentary WiFi, a 55-inch HDTV, clock radio with Bluetooth, as well as ample outlets for charging any device.",
+      "number_on_door": 502,
+      "floor": 5,
+      "num_beds": 1,
+      "max_guests": 1,
+      "price": "250",
+      "image_url": "https://res.cloudinary.com/traveltripperweb/image/upload/v1553753775/bmvtuo3dt4uuez0qsocl.jpg"
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 7,
+    "fields": {
+      "hotel": 4,
+      "create_date": "2020-05-04T09:17:04.665Z",
+      "label": "Extra Love-able Beds",
+      "about_room": "Home is where the kitchen is \u2013 and ours is open 24/7. Enjoy hot and cold food always within reach just like home, snacks galore and the best coffee this side of the Thames. It's just like home \u2013 if your home kitchen had a 24/7 barista and turned into a cocktail bar every evening.",
+      "number_on_door": 802,
+      "floor": 8,
+      "num_beds": 1,
+      "max_guests": 1,
+      "price": "149",
+      "image_url": "https://assets.citizenm.com/images/Hero%20Image-LondonBankside_INT_29_high_d9063e45b4602765da83526.jpg"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "7a4yie5g3c5r5rf13gp0wt5bzjr9g4q5",
+    "fields": {
+      "session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==",
+      "expire_date": "2020-05-10T22:50:13.076Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "8pyyfhcicne0ygi3myciyi63sku92at9",
+    "fields": {
+      "session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==",
+      "expire_date": "2020-05-10T23:04:23.590Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "9gu2us1sw42oxgpvucvtcmr09msznvb7",
+    "fields": {
+      "session_data": "NDNiZTE2Mzg1OGFiMDYyMTZjMTk1YjE0ODhkYTIzMDMzZjQwNmY4ZTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI2YzMwZmRhOGI1NmJkMTRjNzVjNmQ5ZWVmZTRiOGE5NjE2YWM5NWZjIiwiYXJyaXZhbCI6IjIwMjAtMDUtMTgiLCJkZXBhcnR1cmUiOiIyMDIwLTA1LTE5IiwibG9jYXRpb24iOiIxIiwiY2FydCI6eyIzIjp7ImlkIjozLCJhcnJpdmFsIjoiMjAyMC0wNS0xOSIsImRlcGFydHVyZSI6IjIwMjAtMDUtMjEiLCJwcmljZSI6IjI5OSJ9LCIxIjp7ImlkIjoxLCJhcnJpdmFsIjoiMjAyMC0wNS0xOSIsImRlcGFydHVyZSI6IjIwMjAtMDUtMjEiLCJwcmljZSI6IjE1MCJ9LCI3Ijp7ImlkIjo3LCJhcnJpdmFsIjoiMjAyMC0wNS0wNiIsImRlcGFydHVyZSI6IjIwMjAtMDUtMDciLCJwcmljZSI6IjE0OSJ9LCI0Ijp7ImlkIjo0LCJhcnJpdmFsIjoiMjAyMC0wNS0wNiIsImRlcGFydHVyZSI6IjIwMjAtMDUtMDciLCJwcmljZSI6IjM1MCJ9fSwic2VhcmNoIjp7ImxvY2F0aW9uIjoxLCJhcnJpdmFsIjoiMjAyMC0wNS0wNiIsImRlcGFydHVyZSI6IjIwMjAtMDUtMDcifX0=",
+      "expire_date": "2020-05-19T00:22:05.106Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "hxbggm8nxfxwgqh3erbortfdsxukndn0",
+    "fields": {
+      "session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==",
+      "expire_date": "2020-05-16T22:24:46.679Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "l7wbaiejihhiqiqtm50tew2kuxmi6r68",
+    "fields": {
+      "session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==",
+      "expire_date": "2020-05-10T23:05:13.088Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "nt9zyegjfnu870vcnjhqrfh7baxl2nfu",
+    "fields": {
+      "session_data": "MTVkNDcwNzk2OWFmYjZhYTJiYjc5OGI1NTkzZTU2NjYyOTZhZDIzZjp7fQ==",
+      "expire_date": "2020-05-10T22:41:03.475Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "toox3jy1vu8jv3o34kimuz4mc05s33r0",
+    "fields": {
+      "session_data": "NDkwM2VkMGZkNWRiZTYwZDIzM2MwZGZmZDNlZDkyMGEzNzkxODJmNzp7ImFycml2YWwiOiIyMDIwLTA1LTEzIiwiZGVwYXJ0dXJlIjoiMjAyMC0wNS0yMCIsImxvY2F0aW9uIjoiMSIsIl9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJkZTQ1Zjg4ODU3MTEzYjAwNmY2MzQzZDFlODc1ZjI3OTEzNDAzYTAwIiwic2VhcmNoIjp7ImxvY2F0aW9uIjoxLCJhcnJpdmFsIjoiMjAyMC0wNS0wNSIsImRlcGFydHVyZSI6IjIwMjAtMDUtMDYifX0=",
+      "expire_date": "2020-05-18T23:24:10.678Z"
+    }
+  },
+  {
+    "model": "hotel.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$ejU3Txfd8paM$pjKlDJvT/WvdD7gSHD8IvOgyMSb2nPbEi0Emkn3ywEs=",
+      "last_login": "2020-05-04T23:39:35.243Z",
+      "is_superuser": true,
+      "username": "super",
+      "first_name": "Super",
+      "last_name": "Man",
+      "email": "super@home.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-04-26T04:38:04Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "hotel.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$rddqcUAdS65F$jDUAgXF1SfG1W43yIkGFcY5tAz3zWsEtaOiDB3EF5d0=",
+      "last_login": "2020-05-04T17:40:52.396Z",
+      "is_superuser": false,
+      "username": "imsoo",
+      "first_name": "Imsoo",
+      "last_name": "Hickey",
+      "email": "imsoo@home.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-04-26T22:41:03.137Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "hotel.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$V0dCq5CN5gYe$aO5PxzEE+uhwUMm1Ek9kgmpKWutMYAFv/bF3AUw14Rg=",
+      "last_login": "2020-05-03T23:34:16.049Z",
+      "is_superuser": false,
+      "username": "safari",
+      "first_name": "Apple",
+      "last_name": "Safari",
+      "email": "safari@home.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-05-03T23:34:15.856Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "hotel.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$vLJywlbdLSpZ$oXlD2LBZTusT3z8yLdFW3B8qHS3lgEQm20rJGaqlek0=",
+      "last_login": "2020-05-05T20:51:21.782Z",
+      "is_superuser": false,
+      "username": "billy",
+      "first_name": "Billy",
+      "last_name": "Bob",
+      "email": "billy@home.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-05-04T23:00:51.819Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2020-04-26T04:39:55.741Z",
+      "user": 1,
+      "content_type": 4,
+      "object_id": "1",
+      "object_repr": "Location object (1)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2020-04-26T04:40:05.348Z",
+      "user": 1,
+      "content_type": 4,
+      "object_id": "2",
+      "object_repr": "Location object (2)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2020-04-26T04:41:49.466Z",
+      "user": 1,
+      "content_type": 4,
+      "object_id": "3",
+      "object_repr": "London",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+      "action_time": "2020-04-26T04:41:55.209Z",
+      "user": 1,
+      "content_type": 4,
+      "object_id": "4",
+      "object_repr": "Oslo",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+      "action_time": "2020-04-26T04:44:24.210Z",
+      "user": 1,
+      "content_type": 3,
+      "object_id": "1",
+      "object_repr": "Pool",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+      "action_time": "2020-04-26T04:44:33.708Z",
+      "user": 1,
+      "content_type": 3,
+      "object_id": "2",
+      "object_repr": "Wifi",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+      "action_time": "2020-04-26T04:44:48.600Z",
+      "user": 1,
+      "content_type": 3,
+      "object_id": "3",
+      "object_repr": "Restaurant",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+      "action_time": "2020-04-26T04:45:13.044Z",
+      "user": 1,
+      "content_type": 2,
+      "object_id": "1",
+      "object_repr": "Adult-only Pool",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+      "action_time": "2020-04-26T04:45:45.454Z",
+      "user": 1,
+      "content_type": 2,
+      "object_id": "2",
+      "object_repr": "ree & Paid WiFi",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+      "action_time": "2020-04-26T04:46:00.659Z",
+      "user": 1,
+      "content_type": 2,
+      "object_id": "3",
+      "object_repr": "Six Unique Dining Options",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+      "action_time": "2020-04-26T04:47:57.954Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "1",
+      "object_repr": "CAMELBACK VIEW ROOM 2 QUEEN BEDS, Room # 201",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+      "action_time": "2020-04-26T04:48:48.857Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "2",
+      "object_repr": "OASIS POOLSIDE ROOM 1 KING BED, Room # 202",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+      "action_time": "2020-04-26T04:48:52.914Z",
+      "user": 1,
+      "content_type": 6,
+      "object_id": "1",
+      "object_repr": "Montelucia Resort & Spa",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+      "action_time": "2020-04-26T04:58:34.505Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "3",
+      "object_repr": "Fairmont Gold Junior View Suite, Room # 201",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+      "action_time": "2020-04-26T04:59:32.423Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "4",
+      "object_repr": "Fairmont Gold Master Suite, Room # 202",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+      "action_time": "2020-04-26T04:59:34.430Z",
+      "user": 1,
+      "content_type": 6,
+      "object_id": "2",
+      "object_repr": "Fairmont Scottsdale Princess",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+      "action_time": "2020-04-26T21:11:15.842Z",
+      "user": 1,
+      "content_type": 2,
+      "object_id": "2",
+      "object_repr": "Free & Paid WiFi",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Label\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+      "action_time": "2020-04-29T06:20:11.441Z",
+      "user": 1,
+      "content_type": 4,
+      "object_id": "5",
+      "object_repr": "Deserted Island",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+      "action_time": "2020-05-01T17:01:50.890Z",
+      "user": 1,
+      "content_type": 6,
+      "object_id": "1",
+      "object_repr": "Montelucia Resort & Spa",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Room list\", \"Image url\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+      "action_time": "2020-05-01T17:03:10.476Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "3",
+      "object_repr": "Fairmont Gold Junior View Suite, Room # 201",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+      "action_time": "2020-05-01T17:04:07.513Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "2",
+      "object_repr": "OASIS POOLSIDE ROOM 1 KING BED, Room # 202",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+      "action_time": "2020-05-01T17:05:02.671Z",
+      "user": 1,
+      "content_type": 6,
+      "object_id": "2",
+      "object_repr": "Fairmont Scottsdale Princess",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+      "action_time": "2020-05-01T17:06:09.809Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "4",
+      "object_repr": "Fairmont Gold Master Suite, Room # 202",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+      "action_time": "2020-05-04T01:10:38.486Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "2",
+      "object_repr": "Oasis Poolside Room, Room # 202",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Label\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+      "action_time": "2020-05-04T01:10:52.659Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "1",
+      "object_repr": "Camelback View Room, Room # 201",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Label\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+      "action_time": "2020-05-04T01:25:51.625Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "4",
+      "object_repr": "Fairmont Gold Master Suite, Room # 202",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Hotel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+      "action_time": "2020-05-04T01:25:57.921Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "3",
+      "object_repr": "Fairmont Gold Junior View Suite, Room # 201",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Hotel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+      "action_time": "2020-05-04T01:39:28.484Z",
+      "user": 1,
+      "content_type": 1,
+      "object_id": "1",
+      "object_repr": "super",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 29,
+    "fields": {
+      "action_time": "2020-05-04T09:05:58.867Z",
+      "user": 1,
+      "content_type": 6,
+      "object_id": "3",
+      "object_repr": "Gale South Beach, Curio Collection by Hilton",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 30,
+    "fields": {
+      "action_time": "2020-05-04T09:07:42.223Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "5",
+      "object_repr": "Double Signature, Room # 301",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 31,
+    "fields": {
+      "action_time": "2020-05-04T09:09:13.635Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "6",
+      "object_repr": "King Signature, Room # 502",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 32,
+    "fields": {
+      "action_time": "2020-05-04T09:13:46.757Z",
+      "user": 1,
+      "content_type": 6,
+      "object_id": "4",
+      "object_repr": "Citizen M, London Bankside",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 33,
+    "fields": {
+      "action_time": "2020-05-04T09:17:04.667Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "7",
+      "object_repr": "Extra Love-able Beds, Room # 802",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 34,
+    "fields": {
+      "action_time": "2020-05-04T22:52:13.128Z",
+      "user": 1,
+      "content_type": 5,
+      "object_id": "6",
+      "object_repr": "King Signature, Room # 502",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 35,
+    "fields": {
+      "action_time": "2020-05-04T23:39:47.843Z",
+      "user": 1,
+      "content_type": 4,
+      "object_id": "4",
+      "object_repr": "Oslo",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  }
+]
