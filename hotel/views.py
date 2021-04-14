@@ -199,7 +199,7 @@ def cart(request, room_id, arrival, departure, price):
     """
     if not request.user.is_authenticated:
         return JsonResponse({"error": "User is not authenticated."},
-                            status=401)
+                            status=401) 
     # Create the room to added to cart.
     room = {"id": room_id, "arrival": arrival,
             "departure": departure, "price": price}

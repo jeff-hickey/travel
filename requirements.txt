@@ -1,4 +1,4 @@
-asgiref==3.2.3
+asgiref
 attrs==19.3.0
 certifi==2019.11.28
 cffi==1.13.2
