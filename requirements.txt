@@ -33,6 +33,6 @@ six==1.13.0
 sqlparse==0.3.0
 submit50==3.0.2
 termcolor==1.1.0
-urllib3==1.25.8
+urllib3==1.26.5
 Werkzeug==0.16.0
 whitenoise==5.0.1
