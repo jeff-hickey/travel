@@ -27,7 +27,7 @@ python-engineio==3.10.0
 python-socketio==4.4.0
 pytz==2019.3
 PyYAML==5.4
-requests==2.22.0
+requests==2.31.0
 selenium==3.141.0
 six==1.13.0
 sqlparse==0.4.4
